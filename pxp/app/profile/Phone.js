@@ -2,7 +2,7 @@ Ext.define('pxp.profile.Phone', {
     extend: 'Ext.app.Profile',
     config: {
         views: [ 
-           'pxp.view.Phone.Main',
+           'pxp.view.phone.Main',
            'Navigation'],
         //controllers: ['Main']
     },

@@ -1,7 +1,7 @@
 Ext.define('pxp.profile.Tablet', {
     extend: 'Ext.app.Profile',
     config: {
-        views: ['pxp.view.Phone.Main'],
+        views: ['pxp.view.tablet.Main'],
         //controllers: ['Main']
     },
     isActive: function(){
