@@ -73,22 +73,18 @@ Ext.define('pxp.controller.Login', {
             xtype: 'loadmask',
             message: 'Signing In...'
         });
-        
-        alert(password)
-        var pass =md5(password);
-        var _prefix = this.uniqid('pxp');
-        console.log(_prefix)
-        var _pass =  Base64.encode(mcrypt.Encrypt(_prefix + '$$' +pass,undefined,pass,'rijndael-256','ecb'));
-
-        //Ext.Ajax.request({
-        //Ext.data.JsonP.request({
-        console.log(Ext.data.JsonP)		
-        Ext.data.JsonP.request({	
-            url: pxp.app.rest_server+'/pxp/lib/rest/seguridad/Auten/verificarCredenciales',
+         
+         pxp.apiRest.setCredentialsPxp(username,md5(password))
+         var headers = pxp.apiRest.genHeaders()
+         var pass = pxp.apiRest._pass
+         Ext.Ajax.request({
+            //Ext.data.JsonP.request({
+            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
+            headers: headers,
             method: 'post',
             params: {
                 usuario: username,
-                contrasena: _pass
+                contrasena: pass
             },
             success: function (response) {
 
@@ -99,7 +95,7 @@ Ext.define('pxp.controller.Login', {
                     me.sessionToken = loginResponse.sessionToken;
                     me.signInSuccess(); 
                     
-                    pxp.app.cookie.set('register_key',register_key);
+                    //pxp.app.cookie.set('register_key',register_key);
                     
                     
                 } else {
@@ -120,7 +116,7 @@ Ext.define('pxp.controller.Login', {
     signInSuccess: function () {
         var loginView = this.getLoginView();
         
-        //mainMenuView = this.getMainMenuView();
+        //var mainMenuView = this.getMainMenuView();
         
         loginView.setMasked(false);
 
@@ -135,8 +131,7 @@ Ext.define('pxp.controller.Login', {
 	    }
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
         
-        //Ext.getStore('UserInterface').getProxy().setExtraParams({id_user:'test'});
-        //Ext.getStore('UserInterface').load();
+        
         
         
     },
@@ -186,62 +181,8 @@ Ext.define('pxp.controller.Login', {
 				me.getNavigationView().setMasked(true);
 			}
 		}
-	},
-	
-	uniqid: function (prefix, more_entropy) {
-	  //  discuss at: http://phpjs.org/functions/uniqid/
-	  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-	  //  revised by: Kankrelune (http://www.webfaktory.info/)
-	  //        note: Uses an internal counter (in php_js global) to avoid collision
-	  //        test: skip
-	  //   example 1: uniqid();
-	  //   returns 1: 'a30285b160c14'
-	  //   example 2: uniqid('foo');
-	  //   returns 2: 'fooa30285b1cd361'
-	  //   example 3: uniqid('bar', true);
-	  //   returns 3: 'bara20285b23dfd1.31879087'
-	
-	  if (typeof prefix === 'undefined') {
-	    prefix = '';
-	  }
-	
-	  var retId;
-	  var formatSeed = function(seed, reqWidth) {
-	    seed = parseInt(seed, 10)
-	      .toString(16); // to hex str
-	    if (reqWidth < seed.length) { // so long we split
-	      return seed.slice(seed.length - reqWidth);
-	    }
-	    if (reqWidth > seed.length) { // so short we pad
-	      return Array(1 + (reqWidth - seed.length))
-	        .join('0') + seed;
-	    }
-	    return seed;
-	  };
-	
-	  // BEGIN REDUNDANT
-	  if (!this.php_js) {
-	    this.php_js = {};
-	  }
-	  // END REDUNDANT
-	  if (!this.php_js.uniqidSeed) { // init seed with big random int
-	    this.php_js.uniqidSeed = Math.floor(Math.random() * 0x75bcd15);
-	  }
-	  this.php_js.uniqidSeed++;
-	
-	  retId = prefix; // start with prefix, add current milliseconds hex string
-	  retId += formatSeed(parseInt(new Date()
-	    .getTime() / 1000, 10), 8);
-	  retId += formatSeed(this.php_js.uniqidSeed, 5); // add seed hex string
-	  if (more_entropy) {
-	    // for more entropy we add a float lower to 10
-	    retId += (Math.random() * 10)
-	      .toFixed(8)
-	      .toString();
-	  }
-	
-	  return retId;
 	}
-    
+	
+	
     
 });

@@ -16,13 +16,14 @@ Ext.application({
     requires: [
         'Ext.MessageBox',
         'pxp.lib.LocalStorageCookie',
-        'Ext.data.JsonP'
+        'Ext.data.JsonP',
+        'pxp.lib.ApiRestClient'
     ],
     
-   
+    profiles: ['Phone','Tablet'],
 
     views: [
-        'Main',
+        'MainMenu',
         'Login'
     ],
     
@@ -49,15 +50,29 @@ Ext.application({
     },
 
     launch: function() {
+    	pxp.app = this;
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
         pxp.app.cookie = new pxp.lib.LocalStorageCookie();
         
-        //define remote REST server
-        pxp.app.rest_server = 'http://172.17.45.229/kerp_capacitacion'
-
         // Initialize the main view
         Ext.Viewport.add(Ext.create('pxp.view.Login'));
+        
+        //aPI REST CONFIG
+        pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
+        	_host     : '192.168.225.72',
+            _port     : '80',
+            _protocol : 'http',
+		    _base_url : 'kerp'
+        }); 
+        
+    },
+    
+    showMask:function(){
+    	Ext.Viewport.setMasked({xtype:'loadmask',message:'loading'});
+    },
+    hideMask:function(){
+       Ext.Viewport.setMasked(false);
     },
 
     onUpdated: function() {
