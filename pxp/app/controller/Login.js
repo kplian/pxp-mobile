@@ -1,6 +1,9 @@
 Ext.define('pxp.controller.Login', {
     extend: 'Ext.app.Controller',
+   
     config: {
+    	
+    	
     	models: [
             'pxp.model.UserInterface'
         ],
@@ -77,8 +80,11 @@ Ext.define('pxp.controller.Login', {
         console.log(_prefix)
         var _pass =  Base64.encode(mcrypt.Encrypt(_prefix + '$$' +pass,undefined,pass,'rijndael-256','ecb'));
 
-        Ext.Ajax.request({
-            url: '../pxp/lib/rest/seguridad/Auten/verificarCredenciales',
+        //Ext.Ajax.request({
+        //Ext.data.JsonP.request({
+        console.log(Ext.data.JsonP)		
+        Ext.data.JsonP.request({	
+            url: pxp.app.rest_server+'/pxp/lib/rest/seguridad/Auten/verificarCredenciales',
             method: 'post',
             params: {
                 usuario: username,
@@ -93,7 +99,7 @@ Ext.define('pxp.controller.Login', {
                     me.sessionToken = loginResponse.sessionToken;
                     me.signInSuccess(); 
                     
-                    PXP.app.cookie.set('register_key',register_key);
+                    pxp.app.cookie.set('register_key',register_key);
                     
                     
                 } else {
@@ -121,10 +127,10 @@ Ext.define('pxp.controller.Login', {
         //load menu
         if(!this.mainMenu){
 	        if(Ext.os.is.Phone){
-	        	this.mainMenu = Ext.create ('PXP.view.phone.Main');
+	        	this.mainMenu = Ext.create ('pxp.view.phone.Main');
 	        } 
 	        else{
-	        	this.mainMenu = Ext.create ('PXP.view.tablet.Main');
+	        	this.mainMenu = Ext.create ('pxp.view.tablet.Main');
 	        }
 	    }
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());

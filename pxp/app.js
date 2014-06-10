@@ -15,8 +15,11 @@ Ext.application({
 
     requires: [
         'Ext.MessageBox',
-        'pxp.lib.LocalStorageCookie'
+        'pxp.lib.LocalStorageCookie',
+        'Ext.data.JsonP'
     ],
+    
+   
 
     views: [
         'Main',
@@ -49,6 +52,9 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
         pxp.app.cookie = new pxp.lib.LocalStorageCookie();
+        
+        //define remote REST server
+        pxp.app.rest_server = 'http://172.17.45.229/kerp_capacitacion'
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('pxp.view.Login'));

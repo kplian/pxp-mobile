@@ -39,6 +39,25 @@
      *      }
      */
     "js": [
+    
+        /*{
+            "path": "resources/js/base64.js",
+             "update": "full"
+        },
+        {
+            "path": "resources/js/utf8.js",
+            "update": "full"
+        },
+        {
+            "path": "resources/js/md5.js",
+            "update": "full"
+        },
+        {
+            "path": "resources/js/mcrypt.js",
+             "update": "full"
+        },
+    
+    
         {
             "path": "../touch/sencha-touch.js",
             "x-bootstrap": true
@@ -51,7 +70,7 @@
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
-        }
+        },*/
     ],
 
     /**
@@ -105,7 +124,8 @@
     "resources": [
         "resources/images",
         "resources/icons",
-        "resources/startup"
+        "resources/startup",
+        "resources/js",
     ],
 
     /**

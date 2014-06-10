@@ -105,8 +105,8 @@ Ext.define('pxp.view.Login', {
     	var me = this;
     	
     	setTimeout(function(){
-    		var username = PXP.app.cookie.get('username');
-	        var password = PXP.app.cookie.get('password');
+    		var username = pxp.app.cookie.get('username');
+	        var password = pxp.app.cookie.get('password');
 	        usernameField = me.down('#userNameTextField');
 	        passwordField = me.down('#passwordTextField');
 	        
