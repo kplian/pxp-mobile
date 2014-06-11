@@ -5,18 +5,13 @@ Ext.define('pxp.model.UserInterface', {
     ],
 
     config: {
-        fields:['code',
-			    'name',
-			    'description',
-			    'icon_cls',
-			    'handler',
-			    'in_menu',
-			    'order_menu',
-			    'id',
-			    'type',
-			    'level',
-			    'name',
-			    'leaf']
+    	'idProperty':'id_gui',
+        'fields':[
+			        'id_gui',
+			        'codigo_gui',
+			        'nombre',
+			        'codigo_mobile',
+			        'desc_mobile']
       }
       
       

@@ -24,11 +24,16 @@ Ext.application({
 
     views: [
         'MainMenu',
-        'Login'
+        'Login',
+        'BottomTabs',
+        'Carousel',
+        'Buttons',
+        'BubbleChart'
     ],
     
     controllers : [
-        'Login'
+        'Login',
+        'Main'
     ],
 
     icon: {
@@ -50,6 +55,16 @@ Ext.application({
     },
 
     launch: function() {
+    	
+    	//aPI REST CONFIG
+        pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
+        	_host     : '192.168.225.72',
+            _port     : '80',
+            _protocol : 'http',
+		    _base_url : 'kerp'
+        }); 
+        
+    	
     	pxp.app = this;
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
@@ -58,13 +73,6 @@ Ext.application({
         // Initialize the main view
         Ext.Viewport.add(Ext.create('pxp.view.Login'));
         
-        //aPI REST CONFIG
-        pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
-        	_host     : '192.168.225.72',
-            _port     : '80',
-            _protocol : 'http',
-		    _base_url : 'kerp'
-        }); 
         
     },
     

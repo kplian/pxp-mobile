@@ -6,18 +6,12 @@ Ext.define('pxp.store.UserInterface', {
        'Ext.util.Sorter'
     ],
     
-    config: {
+    config: {  
 	    autoLoad: false,
 	    model: 'pxp.model.UserInterface',
 	    successProperty: 'success',
-        proxy: {
-	        type: 'ajax',
-	        url: '/api/session/get/menu/mobile/',
-	        reader : {
-		        type : 'json',
-		        rootProperty : 'data'
-		    }
-	    }
+	    headers:this.headers,
+        
 	  }
 });
 

@@ -15,7 +15,7 @@ Ext.define('pxp.controller.Login', {
             loginView: 'loginview',
             mainView: 'main',
             navigationView : 'navigation',
-            mainMenuView:'mainmenuview',
+            mainMenuView:'mainmenuview', 
 			navBtn : 'button[name="nav_btn"]'
             
           
@@ -78,6 +78,7 @@ Ext.define('pxp.controller.Login', {
          var headers = pxp.apiRest.genHeaders()
          var pass = pxp.apiRest._pass
          Ext.Ajax.request({
+         	scope:this,  
             //Ext.data.JsonP.request({
             url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
             headers: headers,
@@ -116,9 +117,24 @@ Ext.define('pxp.controller.Login', {
     signInSuccess: function () {
         var loginView = this.getLoginView();
         
-        //var mainMenuView = this.getMainMenuView();
         
         loginView.setMasked(false);
+        var headers = pxp.apiRest.genHeaders();
+        console.log('headers',headers)
+        pxp.app.storeMenu = Ext.create('pxp.store.UserInterface',{
+	        	           headers:headers,
+	        	           proxy: {
+					          type: 'rest',
+					          url:pxp.apiRest._url('pxp/lib/rest/seguridad/Gui/listarMenuMobile'),
+					          reader : {
+						        type : 'json',
+						        rootProperty : 'datos'
+						         }
+					       }
+	        	           
+	        	           
+	        	       }); //store of menu
+       
 
         //load menu
         if(!this.mainMenu){
@@ -129,6 +145,13 @@ Ext.define('pxp.controller.Login', {
 	        	this.mainMenu = Ext.create ('pxp.view.tablet.Main');
 	        }
 	    }
+	    console.log('store... ',pxp.app.storeMenu)
+	    
+	    pxp.app.storeMenu.load()
+	    
+	    var mainMenuView = this.getMainMenuView();
+        console.log(mainMenuView)
+        mainMenuView.down('list').setStore(pxp.app.storeMenu);
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
         
         

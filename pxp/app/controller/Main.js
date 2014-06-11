@@ -45,11 +45,16 @@ Ext.define('pxp.controller.Main', {
     
     onOpenHandler: function(DataView,index,target,record,e,eOpts)//nestedList, list, index) 
     {
+    	
     	this.getApplication().getHistory().add(Ext.create('Ext.app.Action', {
-            url: 'menu/' + record.get('id')
+            url: 'menu/' + record.get('id_gui')
         }));
+        
+       
        
     },
+    
+    
     
 
     /**
@@ -145,9 +150,9 @@ Ext.define('pxp.controller.Main', {
      * @return {String} The full class name of the view
      */
     getViewName: function (item) {
-        var name = item.get('code'),
-            ns = 'emsysMobile.view.';
-
+    	 var name = item.get('codigo_mobile'),
+            ns = 'pxp.view.';
+       console.log(ns + name)
        return ns + name;
         
     },
@@ -166,9 +171,11 @@ Ext.define('pxp.controller.Main', {
     //exttras..........
     showMenuById: function(id){
     	var nav  = this.getNav(),
-            store = Ext.getStore('UserInterface'),
+            store = pxp.app.storeMenu,
             item = store.getById(id);
         
+       console.log(id)
+       console.log(item)
        if (item) {
             this.showView(item);
             this.hideSheets();
