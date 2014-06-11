@@ -25,10 +25,10 @@ Ext.application({
     views: [
         'MainMenu',
         'Login',
-        'BottomTabs',
-        'Carousel',
-        'Buttons',
-        'BubbleChart'
+       // 'BottomTabs',
+       // 'Carousel',
+      //  'Buttons',
+       // 'BubbleChart'
     ],
     
     controllers : [
@@ -55,7 +55,6 @@ Ext.application({
     },
 
     launch: function() {
-    	
     	//aPI REST CONFIG
         pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
         	_host     : '192.168.225.72',

@@ -77,9 +77,11 @@ Ext.define('pxp.controller.Login', {
          pxp.apiRest.setCredentialsPxp(username,md5(password))
          var headers = pxp.apiRest.genHeaders()
          var pass = pxp.apiRest._pass
+         
+         //Ext.data.JsonP.request({
          Ext.Ajax.request({
          	scope:this,  
-            //Ext.data.JsonP.request({
+            
             url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
             headers: headers,
             method: 'post',

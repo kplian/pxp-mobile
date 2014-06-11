@@ -151,7 +151,7 @@ Ext.define('pxp.controller.Main', {
      */
     getViewName: function (item) {
     	 var name = item.get('codigo_mobile'),
-            ns = 'pxp.view.';
+            ns = pxp.app.name+'.view.';
        console.log(ns + name)
        return ns + name;
         
