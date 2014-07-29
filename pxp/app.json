@@ -40,21 +40,29 @@
      */
     "js": [
     
-        /*{
+        {
             "path": "resources/js/base64.js",
-             "update": "full"
+            "update": "full" 
         },
         {
-            "path": "resources/js/utf8.js",
-            "update": "full"
+            "path": "resources/js/Serpent.js",
+            "update": "full" 
         },
         {
-            "path": "resources/js/md5.js",
-            "update": "full"
+            "path": "resources/js/rijndael.js",
+            "update": "full" 
         },
         {
             "path": "resources/js/mcrypt.js",
-             "update": "full"
+            "update": "full" 
+        },
+        {
+            "path": "resources/js/utf8.js",
+             "update": "full" 
+        },
+        {
+            "path": "resources/js/md5.js",
+            "update": "full" 
         },
     
     
@@ -70,7 +78,7 @@
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
-        },*/
+        },
     ],
 
     /**
@@ -90,9 +98,14 @@
      *      }
      */
     "css": [
-        {
+       {
             "path": "resources/css/app.css",
             "update": "delta"
+        },
+        
+        {
+            "path": "resources/css/slidenav.css",
+            "update": "full"
         }
     ],
 

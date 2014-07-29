@@ -3,7 +3,6 @@ Ext.define('pxp.controller.Login', {
    
     config: {
     	
-    	
     	models: [
             'pxp.model.UserInterface'
         ],
@@ -77,13 +76,19 @@ Ext.define('pxp.controller.Login', {
          pxp.apiRest.setCredentialsPxp(username,md5(password))
          var headers = pxp.apiRest.genHeaders()
          var pass = pxp.apiRest._pass
+         console.log(headers);
+         
+         //Ext.Ajax.setUseDefaultXhrHeader(false); 
+         //Ext.Ajax.setDefaultPostHeader(headers);
+          
          
          //Ext.data.JsonP.request({
          Ext.Ajax.request({
          	scope:this,  
-            
             url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
-            headers: headers,
+            headers:headers,
+            useDefaultXhrHeader:false,
+            //defaultHeaders:headers,
             method: 'post',
             params: {
                 usuario: username,
@@ -123,10 +128,13 @@ Ext.define('pxp.controller.Login', {
         loginView.setMasked(false);
         var headers = pxp.apiRest.genHeaders();
         console.log('headers',headers)
+        
         pxp.app.storeMenu = Ext.create('pxp.store.UserInterface',{
-	        	           headers:headers,
+	        	            
 	        	           proxy: {
 					          type: 'rest',
+					          headers:headers,
+                              useDefaultXhrHeader:false,
 					          url:pxp.apiRest._url('pxp/lib/rest/seguridad/Gui/listarMenuMobile'),
 					          reader : {
 						        type : 'json',
@@ -140,12 +148,8 @@ Ext.define('pxp.controller.Login', {
 
         //load menu
         if(!this.mainMenu){
-	        if(Ext.os.is.Phone){
-	        	this.mainMenu = Ext.create ('pxp.view.phone.Main');
-	        } 
-	        else{
-	        	this.mainMenu = Ext.create ('pxp.view.tablet.Main');
-	        }
+	        this.mainMenu = Ext.create ('pxp.view.phone.Main');
+	        
 	    }
 	    console.log('store... ',pxp.app.storeMenu)
 	    
@@ -155,7 +159,6 @@ Ext.define('pxp.controller.Login', {
         console.log(mainMenuView)
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
-        
         
         
         

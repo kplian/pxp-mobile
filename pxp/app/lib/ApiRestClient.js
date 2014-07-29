@@ -85,9 +85,16 @@ Ext.define('pxp.lib.ApiRestClient', {
     	var prefix = this.uniqid('pxp');
     	this.pxp = true;
 		this._user = this.fnEncrypt(prefix + '$$' + this.user, this.pass);
-        this.setHeaders({"Pxp-user":this._user});
-        this._pass = this.fnEncrypt(prefix + '$$' + this.pass, this.pass);
-		return this._headers
+       // this._pass = this.fnEncrypt(prefix + '$$' + this.pass, this.pass);
+        
+        this.addHeader({"Pxp-user":this.user});
+        this.addHeader({"Php-Auth-User":this._user});
+        //this.addHeader({"Php-Auth-Pw":this._pass});
+        
+        console.log('this._user',this._user)
+        //console.log('this._pass',this._pass)
+        
+        return this._headers
     },
     
     

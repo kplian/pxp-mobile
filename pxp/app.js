@@ -25,6 +25,7 @@ Ext.application({
     views: [
         'MainMenu',
         'Login',
+        'Interino'
        // 'BottomTabs',
        // 'Carousel',
       //  'Buttons',
@@ -33,7 +34,8 @@ Ext.application({
     
     controllers : [
         'Login',
-        'Main'
+        'Main',
+        'Interino'
     ],
 
     icon: {
@@ -57,10 +59,10 @@ Ext.application({
     launch: function() {
     	//aPI REST CONFIG
         pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
-        	_host     : '192.168.225.72',
+        	_host     : '172.17.45.229',
             _port     : '80',
             _protocol : 'http',
-		    _base_url : 'kerp'
+		    _base_url : 'kerp_capacitacion'
         }); 
         
     	
