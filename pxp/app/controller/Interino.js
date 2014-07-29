@@ -141,7 +141,7 @@ Ext.define('pxp.controller.Interino', {
     	
    }, 
    onDeleteInterino:function(){
-    	pxp.app.showMask();
+    	
     	
     	var seltected = this.getInterinolist().down('list').getSelection();
     	
@@ -158,7 +158,7 @@ Ext.define('pxp.controller.Interino', {
               
               };
               
-              
+        pxp.app.showMask();      
     	Ext.Ajax.request({
 		        
 		        headers: pxp.apiRest.genHeaders(),
