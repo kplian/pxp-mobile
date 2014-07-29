@@ -15,13 +15,13 @@ Ext.define('pxp.view.Login', {
     config: {
         title: 'Login',
         itemId:'loginviewid',
-        style: 'background-color: #ddf',
-        ui: 'dark',
+        //style: 'background-color:#FFFFFF',
+        //ui: 'whait',
         enableSubmissionForm:false,
         items: [
             {
                 xtype: 'image',
-                src: Ext.Viewport.getOrientation() == 'portrait' ? 'static/img/logo_x128.png' : 'static/img/logo_x128.png',
+                src: 'resources/img/logo.jpg',
                 style: Ext.Viewport.getOrientation() == 'portrait' ? 'width:160px;height:160px;margin:auto' : 'width:120px;height:120px;margin:auto'
             },
             {
@@ -35,7 +35,7 @@ Ext.define('pxp.view.Login', {
             },
             {
                 xtype: 'fieldset',
-                title: 'Login PXP mobile',
+                title: 'Login',
                 items: [
                     {
                         xtype: 'textfield',
