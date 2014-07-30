@@ -1,6 +1,6 @@
 Ext.define('pxp.view.vobowf.FormEstAnt', {
     extend: 'Ext.Container',
-    xtype: 'formestant',
+    xtype: 'formestant', //formulario estado anterior
     requires: [
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh',
@@ -9,10 +9,9 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
 
     config: {
     	showAnimation: { type: "slide", direction: "up" } ,
-    	
-        ui: 'detail',
-        
-        
+    	id_proceso_wf:undefined,
+    	id_estado_wf:undefined,
+    	ui: 'detail',
         baseCls: Ext.baseCSSPrefix + 'sheet',
         modal: true,
         centered : true,
@@ -50,6 +49,7 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
                    { xtype: 'spacer' },
                    { 
                    	 xtype: 'button',
+                   	 itemId: 'backDone',
                    	 text: 'Guardar',
                    	 align: 'right',
                    	 listeners: {
@@ -101,7 +101,10 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
     
     
     onDone:function(){
-    	
+    	 var me = this;
+    	 console.log('Me...',me)
+    	 console.log('formestant',me.up('formestant'))
+    	 me.fireEvent('onBackStateDone',me);
     	
     },
     onCancel:function(){

@@ -19,13 +19,15 @@ Ext.define('pxp.controller.VoBoWf', {
 
         refs: {
             vobowflist: 'vobowflist',
-            vobowfdetail:'vobowfdetail'
+            vobowfdetail:'vobowfdetail',
+            formestant:'formestant',
+            vobowftbar:'vobowftbar'
         },
 
         control: {
             'vobowflist list': {
-                select: 'onListTap',
-                tap: 'onListTap'
+               // select: 'onListTap',
+                itemtap: 'onListTap'
             },
             'vobowfdetail #voboback':{
             	tap:'onBackVoBo'
@@ -34,31 +36,58 @@ Ext.define('pxp.controller.VoBoWf', {
             'vobowfdetail #backstate':{
             	tap:'onBackState'
             	
+            },
+            'formestant':{
+            	'onBackStateDone':'onBackStateDone'
+            },
+            'vobowftbar #refreshvobo':{
+            	tap:'onVoBoRefresh'
             }
             
-            
-          
-         } 
+        } 
     },
+    
+    
+    
+   launch:function(){
+	   	console.log('launch .. VoBoWf');
+	   	Ext.regModel('Obs', {
+	            fields: [
+	                {name: 'obs',     type: 'string'}
+	            ],
+	            validations: [
+	                {type: 'presence', name: 'obs',message:"Indique una Obs"}
+	            ]
+	        });
+   	
+   }, 
+   
+   onVoBoRefresh:function(){
+   	   var me = this;
+   	   me.getVobowflist().down('list').getStore().load();
+   	
+   },
+    
    onBackState:function(){
    	
-   	var me = this;
+   	    var me = this;
     	
-    	if(!me.cargocmp){
-    		
-    		me.formEstAnt = Ext.create('pxp.view.vobowf.FormEstAnt',{});
-    	   
-    	    Ext.Viewport.add(me.formEstAnt);
-    	}
+    	me.formEstAnt = Ext.create('pxp.view.vobowf.FormEstAnt',{
+			id_proceso_wf: me.getVobowfdetail().getId_proceso_wf(),
+ 	        id_estado_wf: me.getVobowfdetail().getId_estado_wf()
+		});
+	   
+	    Ext.Viewport.add(me.formEstAnt);
     	
     	me.formEstAnt.show();
+    	
    }, 
     
-   onListTap:function(){
+   onListTap:function(lista, index, target, record, e, eOpts){
    	
-   	    var seltected = this.getVobowflist().down('list').getSelection();
-    	
-    	if(seltected.length == 0){
+   	   console.log('...  ',record)
+   	
+   	    if(!record){
     	    Ext.Msg.alert('Info ...','Selecione una fila primero');
     	    return
     	}
@@ -67,13 +96,16 @@ Ext.define('pxp.controller.VoBoWf', {
     	
     	var me = this,
     	    params = {
-                id_estado_wf:  seltected[0].data.id_estado_wf
+                id_estado_wf:  record.data.id_estado_wf
               
               };
    	
    	
      	me.getVobowflist().hide();
      	me.getVobowfdetail().show();
+     	me.getVobowfdetail().setId_proceso_wf(record.data.id_estado_wf);
+     	me.getVobowfdetail().setId_estado_wf(record.data.id_estado_wf);
+     	
      	//load paltilla evaluada
      	pxp.app.showMask();
     	
@@ -109,5 +141,78 @@ Ext.define('pxp.controller.VoBoWf', {
    onBackVoBo:function(){
    	  	this.getVobowflist().show();
      	this.getVobowfdetail().hide();
-   }
+   },
+   //retrocede estado de work flow
+   onBackStateDone:function(formBackState){
+   	   
+   	   console.log('onBackStateDone',formBackState)
+   	   
+   	   var values = formBackState.down('formpanel').getValues(),
+   	       model = Ext.ModelMgr.create(values,'Obs'),
+   	       errors = model.validate(),message="";
+       
+		 if(errors.isValid()){
+		   	
+		   	  
+		    	var me = this,
+		    	    params = {
+		                id_proceso_wf: formBackState.getId_proceso_wf(),
+		                id_estado_wf: formBackState.getId_estado_wf(),
+		                operacion:"cambiar",
+		                obs:values.obs,
+		                mobile:'si'
+		            };
+		            
+		           
+		              
+		            
+		   	    pxp.app.showMask();
+		    	Ext.Ajax.request({
+				        
+				        headers: pxp.apiRest.genHeaders(),
+			            useDefaultXhrHeader: false,
+			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/anteriorEstadoProcesoWf '),
+				        params: params,
+				        method: 'POST',
+				        scope: me,
+				        success: function(resp){
+				           var Response = Ext.JSON.decode(resp.responseText);
+				           pxp.app.hideMask();
+				           if(!Response.ROOT.error){
+				           	  me.getVobowflist().show();
+     	                      me.getVobowfdetail().hide();
+     	                      me.getVobowflist().down('list').getStore().load();
+     	                      formBackState.hide();
+     	                      
+				           }
+				           else{
+				           	  Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+				           }
+				           
+				           
+				           
+				        },
+				        failure:function(resp){
+		                    var Response = Ext.JSON.decode(resp.responseText);
+		                    pxp.app.hideMask();
+		                    Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+		                    
+		                }
+		        });
+     	
+     	}
+     	else {
+                    Ext.each(errors.items,function(rec,i){
+                       console.log('rec ..',rec,i)
+                        message += rec._message+"<br>";
+                    });
+                    
+                    
+                    Ext.Msg.alert("Validate", message, function(){});
+                    return false;
+             }
+   	
+   },
+   
+   
 });

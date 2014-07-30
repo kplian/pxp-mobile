@@ -21,7 +21,8 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
     ],
     
     config: {
-    	
+    	id_proceso_wf:undefined,
+    	id_estado_wf:undefined,
     	ui: 'light',
     	showAnimation: { type: "slide", direction: "down" } ,
         items: [

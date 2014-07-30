@@ -6,6 +6,7 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
     extend: 'Ext.Container',
     xtype : 'vobowflist',
     requires: [
+        'pxp.view.vobowf.VoBoWfTbar',
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh',
         'Ext.List',
@@ -18,7 +19,10 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
             type: 'vbox',
             align: 'stretch'
         },
-    	items: []
+    	items: [{
+	           	 xtype : 'vobowftbar',
+	             docked: 'top'
+	           }]
     },
     initialize:function(){
     	var me = this;
@@ -39,14 +43,23 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 	                ],
 			   	masked: { xtype: 'loadmask', message: 'loading' },
 		    	store: me.store,
-		    	itemTpl: "<div><table width='100%'>"+
-		    	          "<tr>"+
-						  "<td colspan=2 style='float: left;' width='100%'> <b>"+
+		    	itemTpl: new Ext.XTemplate("<div><table width='100%'>",
+		    	          "<tr>",
+						  "<td colspan=2 style='float: left;' width='100%'><b>",
 						  
-						  "{nombre_subsistema}<font></b></td>"+
-						  "</tr>"+
-		    	
-						  "<tr>"+
+						  
+						  '<tpl switch="codigo_subsistema">',
+					            '<tpl  case="TES">',
+					               "<font color='red'>{nombre_subsistema}</font>",
+					            '<tpl default>',
+					               "<font color='green'>{nombre_subsistema}</font>",
+					            
+					      '</tpl>', 
+					        
+					      "</b></td>",
+						  "</tr>",
+						   	  
+						  "<tr>",
 						   "<td colspan=2 style='float: left;' width='100%'> <b>{desc_tipo_proceso}</b> ({usr_reg})</td>"+
 						   
 						  "</tr>"+
@@ -58,7 +71,7 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 						  "</tr>"+
 						  "<tr>"+
 						    "<td colspan=2 style='float: left;' width='100%'><p>Resp: {nombre_depto} {desc_funcionario1}  </p></td>"+
-						  "</tr></table></div>"
+						  "</tr></table></div>")
      
 	   	
 	   }]);

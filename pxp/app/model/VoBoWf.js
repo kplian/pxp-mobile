@@ -4,7 +4,7 @@ Ext.define('pxp.model.VoBoWf', {
         'Ext.data.Model'
     ],
     config: {
-    	idProperty :'id_estado_wf',
+    	idProperty :'id_proceso_wf',
 	    fields: [	    
 			    'id_proceso_wf',
 				'id_tipo_proceso',
