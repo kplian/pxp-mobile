@@ -24,17 +24,15 @@ Ext.application({
     views: [
         'MainMenu',
         'Login',
-        'Interino'
-       // 'BottomTabs',
-       // 'Carousel',
-      //  'Buttons',
-       // 'BubbleChart'
+        'interino.Interino'//,
+        //'vobowf.VoBoWf'
     ],
     
     controllers : [
         'Login',
         'Main',
-        'Interino'
+        'Interino',
+        'VoBoWf'
     ],
 
     icon: {
