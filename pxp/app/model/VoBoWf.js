@@ -33,7 +33,9 @@ Ext.define('pxp.model.VoBoWf', {
 				'desc_funcionario1',
 				'nombre_depto',
 				'usu_reg_ew',
-				'nombre_tipo_estado'
+				'nombre_tipo_estado',
+				'nombre_subsistema',
+				'codigo_subsistema'
 					]
      }  
 });

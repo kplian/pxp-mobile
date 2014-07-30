@@ -40,6 +40,12 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 			   	masked: { xtype: 'loadmask', message: 'loading' },
 		    	store: me.store,
 		    	itemTpl: "<div><table width='100%'>"+
+		    	          "<tr>"+
+						  "<td colspan=2 style='float: left;' width='100%'> <b>"+
+						  
+						  "{nombre_subsistema}<font></b></td>"+
+						  "</tr>"+
+		    	
 						  "<tr>"+
 						   "<td colspan=2 style='float: left;' width='100%'> <b>{desc_tipo_proceso}</b> ({usr_reg})</td>"+
 						   

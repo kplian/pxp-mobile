@@ -21,8 +21,8 @@ Ext.define('pxp.view.Login', {
         items: [
             {
                 xtype: 'image',
-                src: 'resources/img/logo.jpg',
-                style: Ext.Viewport.getOrientation() == 'portrait' ? 'width:160px;height:160px;margin:auto' : 'width:120px;height:120px;margin:auto'
+                src: 'resources/img/logo.png',
+                style: 'width:150px;height:81px;margin:auto' 
             },
             {
                 xtype: 'label',
