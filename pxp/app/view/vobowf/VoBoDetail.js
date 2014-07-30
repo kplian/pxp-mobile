@@ -15,7 +15,8 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
     requires: [
         'Ext.field.Select',
         'Ext.field.Search',
-        'Ext.Toolbar'
+        'Ext.Toolbar',
+        'pxp.view.vobowf.FormEstAnt'
         
     ],
     
@@ -47,7 +48,30 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
            	itemId: 'detailvobo',
            	flex: 1,
            	html  : 'Hello'
-           }
+           },
+           {
+                xtype: 'toolbar',
+                ui: 'light',
+                docked: 'bottom',
+                items: [
+                    {
+                        xtype: 'button',
+                        iconMask: true,
+                         text: 'Retroceder',
+                        iconCls: 'arrow_left',
+                        itemId: 'backstate'
+                    },
+                    { xtype: 'spacer', width: 50 },
+                    { xtype: 'spacer' },
+                    {
+                        xtype: 'button',
+                        iconMask: true,
+                        text: 'Aprobar',
+                        iconCls: 'arrow_right',
+                        itemId: 'nextstate'
+                    }
+                ]
+            }
         ],
         layout: {
             type: 'vbox',

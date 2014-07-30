@@ -244,13 +244,6 @@ Ext.define('pxp.controller.Interino', {
     		Invoicelist.unmask();
     	}})
     	
-    },
-    
-    
-    
-   
-    
-    
-
+    }
     
 });

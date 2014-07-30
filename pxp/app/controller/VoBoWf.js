@@ -30,11 +30,29 @@ Ext.define('pxp.controller.VoBoWf', {
             'vobowfdetail #voboback':{
             	tap:'onBackVoBo'
             	
+            },
+            'vobowfdetail #backstate':{
+            	tap:'onBackState'
+            	
             }
+            
             
           
          } 
     },
+   onBackState:function(){
+   	
+   	var me = this;
+    	
+    	if(!me.cargocmp){
+    		
+    		me.formEstAnt = Ext.create('pxp.view.vobowf.FormEstAnt',{});
+    	   
+    	    Ext.Viewport.add(me.formEstAnt);
+    	}
+    	
+    	me.formEstAnt.show();
+   }, 
     
    onListTap:function(){
    	
