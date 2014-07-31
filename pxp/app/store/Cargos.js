@@ -20,8 +20,8 @@ Ext.define('pxp.store.Cargos', {
 	   var me = this;
        me.setProxy({
 	        type: 'ajax',
-	        headers: pxp.apiRest.genHeaders(),
-	        useDefaultXhrHeader:false,
+	        withCredentials: true,
+	        useDefaultXhrHeader: false,
 	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Cargo/listarCargo'),
 	        reader : {
 		        type : 'json',

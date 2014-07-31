@@ -18,8 +18,8 @@ Ext.define('pxp.store.Interinos', {
 	   var me = this;
        me.setProxy({
 	        type: 'ajax',
-	        headers: pxp.apiRest.genHeaders(),
-	        useDefaultXhrHeader:false,
+	        withCredentials: true,
+	        useDefaultXhrHeader: false,
 	        //pageParam: 'page',//This parameter needs to be modified
 	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/listarMisSuplentes'),
 	        reader : {

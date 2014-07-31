@@ -18,8 +18,8 @@ Ext.define('pxp.store.VoBoWf', {
 	   var me = this;
        me.setProxy({
 	        type: 'ajax',
-	        headers: pxp.apiRest.genHeaders(),
-	        useDefaultXhrHeader:false,
+	        withCredentials: true,
+	        useDefaultXhrHeader: false,
 	        extraParams:{tipo_interfaz:'VoBoProceso'},
 	        //pageParam: 'page',//This parameter needs to be modified
 	        url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/listarProcesoWfMobile'),

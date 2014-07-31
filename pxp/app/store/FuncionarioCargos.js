@@ -20,8 +20,8 @@ Ext.define('pxp.store.FuncionarioCargos', {
 	   var me = this;
        me.setProxy({
 	        type: 'ajax',
-	        headers: pxp.apiRest.genHeaders(),
-	        useDefaultXhrHeader:false,
+	        withCredentials: true,
+	        useDefaultXhrHeader: false,
 	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Funcionario/listarFuncionarioCargo'),
 	        reader : {
 		        type : 'json',

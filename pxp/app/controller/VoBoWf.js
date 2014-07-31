@@ -94,7 +94,8 @@ Ext.define('pxp.controller.VoBoWf', {
 		           console.log('...  ',Response);
 		           
 		           if(!Response.ROOT.error){
-		           	  setTimeout((function(){me.checkMessages()}), 180000);
+		           	  //setTimeout((function(){me.checkMessages()}), 180000);
+		           	  setTimeout((function(){me.checkMessages()}), 5000);
 		              console.log('fecha_pivote',Response.ROOT.datos.fecha_pivote)
 		              me.getVobowflist().setPivote(Response.ROOT.datos.fecha_pivote);
 		              
@@ -183,8 +184,7 @@ Ext.define('pxp.controller.VoBoWf', {
      	pxp.app.showMask();
     	
     	Ext.Ajax.request({
-		        
-		        headers: pxp.apiRest.genHeaders(),
+		        withCredentials: true,
 	            useDefaultXhrHeader: false,
 	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/evaluaPlantillaEstado'),
 		        params: params,
@@ -241,10 +241,9 @@ Ext.define('pxp.controller.VoBoWf', {
 		            
 		   	    pxp.app.showMask();
 		    	Ext.Ajax.request({
-				        
-				        headers: pxp.apiRest.genHeaders(),
-			            useDefaultXhrHeader: false,
-			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/anteriorEstadoProcesoWf '),
+				        withCredentials: true,
+	                    useDefaultXhrHeader: false,
+	                    url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/anteriorEstadoProcesoWf '),
 				        params: params,
 				        method: 'POST',
 				        scope: me,
@@ -311,8 +310,8 @@ Ext.define('pxp.controller.VoBoWf', {
 		   	    pxp.app.showMask();
 		    	Ext.Ajax.request({
 				        
-				        headers: pxp.apiRest.genHeaders(),
-			            useDefaultXhrHeader: false,
+				        withCredentials: true,
+	                    useDefaultXhrHeader: false,
 			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
 				        params: params,
 				        method: 'POST',

@@ -115,7 +115,7 @@ Ext.define('pxp.controller.Interino', {
               
     	Ext.Ajax.request({
 		        
-		        headers: pxp.apiRest.genHeaders(),
+		        withCredentials: true,
 	            useDefaultXhrHeader: false,
 	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/asignarMiSuplente'),
 		        params: params,
@@ -161,7 +161,7 @@ Ext.define('pxp.controller.Interino', {
         pxp.app.showMask();      
     	Ext.Ajax.request({
 		        
-		        headers: pxp.apiRest.genHeaders(),
+		        withCredentials: true,
 	            useDefaultXhrHeader: false,
 	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/eliminarInterinato'),
 		        params: params,
