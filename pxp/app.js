@@ -16,7 +16,9 @@ Ext.application({
         'Ext.MessageBox',
         'pxp.lib.LocalStorageCookie',
         'Ext.data.JsonP',
-        'pxp.lib.ApiRestClient'
+        'pxp.lib.ApiRestClient',
+        'Ext.direct.*'
+
     ],
     
     profiles: ['Phone','Tablet'],

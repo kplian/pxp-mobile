@@ -1,6 +1,6 @@
-Ext.define('pxp.view.vobowf.FormEstAnt', {
+Ext.define('pxp.view.vobowf.FormEstSig', {
     extend: 'Ext.Container',
-    xtype: 'formestant', //formulario estado anterior
+    xtype: 'formestsig', //formulario estado anterior
     requires: [
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh',
@@ -40,15 +40,14 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
                      align: 'left',
                      listeners: {
 			                tap: function (searchField) {
-			                    searchField.up('formestant').onCancel();
+			                    searchField.up('formestsig').onCancel();
 			                 },
 			                 scope: this
 			             
                      }
                    },
-                   {   
-                   	   xtype: 'title',
-                       title: 'Rechazar ...',
+                   {   xtype: 'title',
+                       title: 'Aprobar ...',
                        flex:1
                    },
                    { 
@@ -58,7 +57,7 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
                    	 align: 'right',
                    	 listeners: {
 			                tap: function (searchField) {
-			                    searchField.up('formestant').onDone();
+			                    searchField.up('formestsig').onDone();
 			                 },
 			                scope: this
 			            }
@@ -74,12 +73,8 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
     hide: function(animation) {
         var me = this;
 
-        //we fire this event so the controller can deselect all items immediately.
+        //we fire this event for hide interface, after that we destroy the interface.
         me.fireEvent('hideanimationstart', me);
-
-        //show the mask again
-        //me.callParent();
-        console.log('destroy..................')
         me.destroy();
     },
     
@@ -91,11 +86,11 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
                 padding :'5 5 5 5',
                 flex:1,
                 items:[
-                      { xtype: 'textareafield',
-			            label: 'Obser.',
-			            maxRows: 16,
-			            name: 'obs'
-			        }]
+	                    {   xtype: 'textareafield',
+				            label: 'Obser.',
+				            maxRows: 16,
+				            name: 'obs'
+				        }]
            
            }]);
 	   
@@ -106,9 +101,7 @@ Ext.define('pxp.view.vobowf.FormEstAnt', {
     
     onDone:function(){
     	 var me = this;
-    	 console.log('Me...',me)
-    	 console.log('formestant',me.up('formestant'))
-    	 me.fireEvent('onBackStateDone',me);
+    	 me.fireEvent('onNextStateDone',me);
     	
     },
     onCancel:function(){

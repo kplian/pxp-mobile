@@ -15,7 +15,8 @@ Ext.define('pxp.controller.Main', {
         refs: {
         	nav:'mainmenuview',
         	navTest:'#maincontainerid',
-        	mainView: 'main'
+        	mainView: 'main',
+        	navigation:'navigation'
         },
 
         control: {
@@ -45,13 +46,13 @@ Ext.define('pxp.controller.Main', {
     
     onOpenHandler: function(DataView,index,target,record,e,eOpts)//nestedList, list, index) 
     {
-    	
     	this.getApplication().getHistory().add(Ext.create('Ext.app.Action', {
             url: 'menu/' + record.get('id_gui')
         }));
+        //set title bar
+        this.getNavigation().down('#mainTitleBar').setTitle(record.data.desc_mobile);
         
-       
-       
+        
     },
     
     
@@ -172,10 +173,11 @@ Ext.define('pxp.controller.Main', {
     showMenuById: function(id){
     	var nav  = this.getNav(),
             store = pxp.app.storeMenu,
-            item = store.getById(id);
-        
-       console.log(id)
-       console.log(item)
+            item;
+            if(store){
+            	item = store.getById(id);
+            }
+            
        if (item) {
             this.showView(item);
             this.hideSheets();
@@ -189,7 +191,7 @@ Ext.define('pxp.controller.Main', {
             view = this.createView(item),
             main = this.getNavTest(),
             newAnim;
-       main.setActiveItem(view);
+        main.setActiveItem(view);
         nav.getActiveItem().select(item);
 
         if (newAnim) {

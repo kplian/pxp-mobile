@@ -23,7 +23,8 @@ Ext.define('pxp.view.phone.Navigation', {
 								styleHtmlContent : true,
 								items : [{
 										xtype : 'titlebar',
-										title : 'Slide Nav',
+										itemId:'mainTitleBar',
+										title : '',
 										docked : 'top',
 										items :[{
 														align : 'left',

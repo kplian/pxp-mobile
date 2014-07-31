@@ -14,6 +14,7 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
     ],
 
     config: {
+    	pivote:'',
     	showAnimation: { type: "slide", direction: "down" },
     	layout: {
             type: 'vbox',
@@ -22,7 +23,15 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
     	items: [{
 	           	 xtype : 'vobowftbar',
 	             docked: 'top'
-	           }]
+	           },
+	            {
+                  xtype: 'audio',
+                  hidden: true,
+                  url: 'resources/sound/Alert.mp3'
+                }
+	           
+	           
+	           ]
     },
     initialize:function(){
     	var me = this;
@@ -79,10 +88,17 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 	   me.mask(); 
        me.store.load({callback:function(){
     		me.unmask();
+    		me.fireEvent('checkMessages');
     		
        }});
-       //me.callParent(arguments)
+      
+      
     	  
-    }
+    },
+    getFormattedDate:function() {
+        var date = new Date();
+        var str = date.getDate()+"/"+ (date.getMonth() + 1) + "/" + date.getFullYear() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        return str;
+   }
     
 });

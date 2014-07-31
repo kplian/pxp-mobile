@@ -87,6 +87,8 @@ Ext.define('pxp.controller.Login', {
          	scope:this,  
             url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
             headers:headers,
+            withCredentials: true,     
+   
             useDefaultXhrHeader:false,
             //defaultHeaders:headers,
             method: 'post',

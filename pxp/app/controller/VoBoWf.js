@@ -8,8 +8,7 @@
 Ext.define('pxp.controller.VoBoWf', {
     extend: 'Ext.app.Controller',
     config: {
-        profile: Ext.os.deviceType.toLowerCase(),
-        
+    	profile: Ext.os.deviceType.toLowerCase(),
         models: [
             'pxp.model.VoBoWf',
         ],
@@ -21,6 +20,7 @@ Ext.define('pxp.controller.VoBoWf', {
             vobowflist: 'vobowflist',
             vobowfdetail:'vobowfdetail',
             formestant:'formestant',
+            formestsig:'formestsig',
             vobowftbar:'vobowftbar'
         },
 
@@ -28,6 +28,9 @@ Ext.define('pxp.controller.VoBoWf', {
             'vobowflist list': {
                // select: 'onListTap',
                 itemtap: 'onListTap'
+            },
+            'vobowflist': {
+               'checkMessages': 'checkMessages'
             },
             'vobowfdetail #voboback':{
             	tap:'onBackVoBo'
@@ -37,12 +40,21 @@ Ext.define('pxp.controller.VoBoWf', {
             	tap:'onBackState'
             	
             },
+            'vobowfdetail #nextstate':{
+            	tap:'onNextState'
+            	
+            },
             'formestant':{
             	'onBackStateDone':'onBackStateDone'
             },
             'vobowftbar #refreshvobo':{
             	tap:'onVoBoRefresh'
+            },
+            'formestsig':{
+            	'onNextStateDone':'onNextStateDone'
             }
+            
+            
             
         } 
     },
@@ -50,7 +62,6 @@ Ext.define('pxp.controller.VoBoWf', {
     
     
    launch:function(){
-	   	console.log('launch .. VoBoWf');
 	   	Ext.regModel('Obs', {
 	            fields: [
 	                {name: 'obs',     type: 'string'}
@@ -58,9 +69,56 @@ Ext.define('pxp.controller.VoBoWf', {
 	            validations: [
 	                {type: 'presence', name: 'obs',message:"Indique una Obs"}
 	            ]
-	        });
-   	
+	     });
    }, 
+   
+   checkMessages:function(){
+   	    var me = this,
+   	        meparams;
+   	        if(me.getVobowflist){
+   	        	
+   	        	meparams = {'fecha_pivote':me.getVobowflist().getPivote()}
+   	            console.log('params.....',meparams,me)
+   	        }
+   	        
+   	    Ext.Ajax.request({
+		        //headers: pxp.apiRest.genHeaders(),
+		        withCredentials: true,
+	            useDefaultXhrHeader: false,
+	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/chequeaEstadosMobile'),
+		        params: meparams,
+		        method: 'POST',
+		        scope: me,
+		        success: function(resp){
+		           var Response = Ext.JSON.decode(resp.responseText);
+		           console.log('...  ',Response);
+		           
+		           if(!Response.ROOT.error){
+		           	  setTimeout((function(){me.checkMessages()}), 180000);
+		              console.log('fecha_pivote',Response.ROOT.datos.fecha_pivote)
+		              me.getVobowflist().setPivote(Response.ROOT.datos.fecha_pivote);
+		              
+		           	  if(Response.ROOT.datos.total_registros > 0){
+		           	      me.getVobowflist().down('list').getStore().load();
+		           	      me.getVobowflist().down('audio').toggle();
+
+                        audio.toggle();
+		           	  }
+		           	}
+		            else{
+		           	   Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+		            }
+           
+		         },
+		        failure:function(resp){
+                    var Response = Ext.JSON.decode(resp.responseText);
+                    Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+                    
+                }
+        });
+   	
+   	
+   },
    
    onVoBoRefresh:function(){
    	   var me = this;
@@ -82,6 +140,21 @@ Ext.define('pxp.controller.VoBoWf', {
     	me.formEstAnt.show();
     	
    }, 
+   
+   onNextState:function(){
+   	
+   	    var me = this;
+    	
+    	me.formEstAnt = Ext.create('pxp.view.vobowf.FormEstSig',{
+			id_proceso_wf: me.getVobowfdetail().getId_proceso_wf(),
+ 	        id_estado_wf: me.getVobowfdetail().getId_estado_wf()
+		});
+	   
+	    Ext.Viewport.add(me.formEstAnt);
+    	
+    	me.formEstAnt.show();
+    	
+   },
     
    onListTap:function(lista, index, target, record, e, eOpts){
    	
@@ -103,7 +176,7 @@ Ext.define('pxp.controller.VoBoWf', {
    	
      	me.getVobowflist().hide();
      	me.getVobowfdetail().show();
-     	me.getVobowfdetail().setId_proceso_wf(record.data.id_estado_wf);
+     	me.getVobowfdetail().setId_proceso_wf(record.data.id_proceso_wf);
      	me.getVobowfdetail().setId_estado_wf(record.data.id_estado_wf);
      	
      	//load paltilla evaluada
@@ -213,6 +286,75 @@ Ext.define('pxp.controller.VoBoWf', {
              }
    	
    },
+   
+   onNextStateDone:function(formNextState){
+   	   
+   	   console.log('onNextStateDone',formNextState)
+   	   
+   	   var values = formNextState.down('formpanel').getValues(),
+   	       model = Ext.ModelMgr.create(values,'Obs'),
+   	       errors = model.validate(),message="";
+       
+		 if(errors.isValid()){
+		   	
+		   	  
+		    	var me = this,
+		    	    params = {
+		                id_proceso_wf: formNextState.getId_proceso_wf(),
+		                id_estado_wf: formNextState.getId_estado_wf(),
+		                operacion:"cambiar",
+		                obs:values.obs,
+		                mobile:'si'
+		            };
+		            
+		            
+		   	    pxp.app.showMask();
+		    	Ext.Ajax.request({
+				        
+				        headers: pxp.apiRest.genHeaders(),
+			            useDefaultXhrHeader: false,
+			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
+				        params: params,
+				        method: 'POST',
+				        scope: me,
+				        success: function(resp){
+				           var Response = Ext.JSON.decode(resp.responseText);
+				           pxp.app.hideMask();
+				           if(!Response.ROOT.error){
+				           	  me.getVobowflist().show();
+     	                      me.getVobowfdetail().hide();
+     	                      me.getVobowflist().down('list').getStore().load();
+     	                      formNextState.hide();
+     	                      
+				           }
+				           else{
+				           	  Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+				           }
+				           
+				           
+				           
+				        },
+				        failure:function(resp){
+		                    var Response = Ext.JSON.decode(resp.responseText);
+		                    pxp.app.hideMask();
+		                    Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
+		                    
+		                }
+		        });
+     	
+     	}
+     	else {
+                    Ext.each(errors.items,function(rec,i){
+                       console.log('rec ..',rec,i)
+                        message += rec._message+"<br>";
+                    });
+                    
+                    
+                    Ext.Msg.alert("Validate", message, function(){});
+                    return false;
+             }
+   	
+   }
    
    
 });
