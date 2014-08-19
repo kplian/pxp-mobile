@@ -45,10 +45,14 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
             },
            
            {
-           	xtype: 'container',
-           	itemId: 'detailvobo',
-           	flex: 1,
-           	html  : 'Hello'
+	           	xtype: 'container',
+	           	itemId: 'detailvobo',
+	           	scrollable: {
+				    direction: 'vertical',
+				    directionLock: true
+				},
+	           	flex: 1,
+	           	html  : 'Hello'
            },
            {
                 xtype: 'toolbar',
