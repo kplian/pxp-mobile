@@ -78,7 +78,7 @@
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
-        },
+        }
     ],
 
     /**
@@ -135,10 +135,11 @@
      * Extra resources to be copied along when build
      */
     "resources": [
-        "resources/images",
+        "resources/img",
         "resources/icons",
         "resources/startup",
         "resources/js",
+        "resources/sound"
     ],
 
     /**
@@ -164,5 +165,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "554743d7-7cf8-4459-9049-09ac7b3f8c6e"
+    "id": "0ad03ef1-a3b9-481d-afd1-1f195de8de0d"
 }

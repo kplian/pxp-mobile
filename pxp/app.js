@@ -17,8 +17,12 @@ Ext.application({
         'pxp.lib.LocalStorageCookie',
         'Ext.data.JsonP',
         'pxp.lib.ApiRestClient',
-        'Ext.direct.*'
-
+        'Ext.direct.*',
+        'Ext.List',
+        'Ext.Audio',
+        'Ext.field.Select',
+        'Ext.field.Search',
+        'Ext.Toolbar'
     ],
     
     profiles: ['Phone','Tablet'],
@@ -26,8 +30,8 @@ Ext.application({
     views: [
         'MainMenu',
         'Login',
-        'interino.Interino'//,
-        //'vobowf.VoBoWf'
+        'interino.Interino'
+        //,'vobowf.VoBoWf'
     ],
     
     controllers : [
