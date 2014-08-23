@@ -106,12 +106,10 @@ Ext.define('pxp.controller.Login', {
                     
                     //pxp.app.cookie.set('register_key',register_key);
                     if(remember){
-                    	console.log('remenber')
                     	pxp.app.cookie.set('username',username);
                         pxp.app.cookie.set('password',password);
                         pxp.app.cookie.set('remember',true);
                     }else{
-                    	console.log('!!!!!!remenber')
                     	pxp.app.cookie.set('username','');
                         pxp.app.cookie.set('password','');
                         pxp.app.cookie.set('remember',false);
@@ -168,17 +166,12 @@ Ext.define('pxp.controller.Login', {
 	        this.mainMenu = Ext.create ('pxp.view.phone.Main');
 	        
 	    }
-	    console.log('store... ',pxp.app.storeMenu)
-	    
 	    pxp.app.storeMenu.load()
 	    
 	    var mainMenuView = this.getMainMenuView();
-        console.log('mainMenuView',mainMenuView);
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
-        console.log('storeMenu',pxp.app.storeMenu);
-         
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
-        console.log('Ext.Viewport.animateActiveItem');
+        
         
         
     },
@@ -202,6 +195,9 @@ Ext.define('pxp.controller.Login', {
                 sessionToken: me.sessionToken
             },
             success: function (response) {
+            	 pxp.app.cookie.set('username','');
+                 pxp.app.cookie.set('password','');
+                 pxp.app.cookie.set('remember',false);
             	 location.reload();
                
             },

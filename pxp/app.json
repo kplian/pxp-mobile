@@ -154,6 +154,7 @@
      * must be kept intact for proper generation of deltas between updates
      */
     "archivePath": "archive",
+    "lan":['es']
 
     /**
      * List of package names to require for the cmd build process

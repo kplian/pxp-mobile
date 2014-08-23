@@ -143,7 +143,9 @@ Ext.define('pxp.view.Login', {
 		        else{
 		        	rememberField.uncheck();
 		        }   
-	        }        
+	        } 
+	        
+	        me.onLogInButtonTap();       
 
        }, 300);
        
