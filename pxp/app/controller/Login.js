@@ -57,7 +57,7 @@ Ext.define('pxp.controller.Login', {
         return { type: 'slide', direction: 'right' };
     },
 
-    onSignInCommand: function (view, username, password) {
+    onSignInCommand: function (view, username, password,remember) {
 
         var me = this,
             loginView = me.getLoginView();
@@ -105,6 +105,23 @@ Ext.define('pxp.controller.Login', {
                     me.signInSuccess(); 
                     
                     //pxp.app.cookie.set('register_key',register_key);
+                    if(remember){
+                    	console.log('remenber')
+                    	pxp.app.cookie.set('username',username);
+                        pxp.app.cookie.set('password',password);
+                        pxp.app.cookie.set('remember',true);
+                    }else{
+                    	console.log('!!!!!!remenber')
+                    	pxp.app.cookie.set('username','');
+                        pxp.app.cookie.set('password','');
+                        pxp.app.cookie.set('remember',false);
+                        
+                        view.down('#userNameTextField').setValue('');
+                        view.down('#passwordTextField').setValue('');
+                     
+                    }
+                    
+                    console.log('fin logincommand')
                     
                     
                 } else {
@@ -123,9 +140,8 @@ Ext.define('pxp.controller.Login', {
     },
 
     signInSuccess: function () {
+        console.log('signInSuccess');
         var loginView = this.getLoginView();
-        
-        
         loginView.setMasked(false);
         var headers = pxp.apiRest.genHeaders();
         console.log('headers',headers)
@@ -157,10 +173,12 @@ Ext.define('pxp.controller.Login', {
 	    pxp.app.storeMenu.load()
 	    
 	    var mainMenuView = this.getMainMenuView();
-        console.log(mainMenuView)
+        console.log('mainMenuView',mainMenuView);
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
+        console.log('storeMenu',pxp.app.storeMenu);
+         
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
-        
+        console.log('Ext.Viewport.animateActiveItem');
         
         
     },
@@ -176,18 +194,20 @@ Ext.define('pxp.controller.Login', {
 
         var me = this;
         Ext.Ajax.request({
-            url: 'api/logout/',
+            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/cerrarSesion'),
+            withCredentials: true,
+	        useDefaultXhrHeader: false,
             method: 'post',
             params: {
                 sessionToken: me.sessionToken
             },
             success: function (response) {
-
-                // TODO: You need to handle this condition.
+            	 location.reload();
+               
             },
             failure: function (response) {
 
-                // TODO: You need to handle this condition.
+               Ext.Msg.alert('Info...', 'Error al cerrar sesion', Ext.emptyFn);
             }
         });
 

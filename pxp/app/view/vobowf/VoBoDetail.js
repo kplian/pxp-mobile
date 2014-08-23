@@ -42,7 +42,7 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
             },
            
            {
-<<<<<<< HEAD
+
            	xtype: 'container',
            	itemId: 'detailvobo',
            	scrollable: {
@@ -51,16 +51,7 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
 			},
            	flex: 1,
            	html  : 'Hello'
-=======
-	           	xtype: 'container',
-	           	itemId: 'detailvobo',
-	           	scrollable: {
-				    direction: 'vertical',
-				    directionLock: true
-				},
-	           	flex: 1,
-	           	html  : 'Hello'
->>>>>>> 3e90ad431c23a0d9801845150d1c913526189fb0
+
            },
            {
                 xtype: 'toolbar',
@@ -70,7 +61,8 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
                     {
                         xtype: 'button',
                         iconMask: true,
-                         text: 'Retroceder',
+                        text: 'Retroceder',
+                        ui: 'decline',
                         iconCls: 'arrow_left',
                         itemId: 'backstate'
                     },
@@ -79,6 +71,7 @@ Ext.define('pxp.view.vobowf.VoBoDetail', {
                     {
                         xtype: 'button',
                         iconMask: true,
+                        ui: 'confirm',
                         text: 'Aprobar',
                         iconCls: 'arrow_right',
                         itemId: 'nextstate'

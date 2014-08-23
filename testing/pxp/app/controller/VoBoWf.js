@@ -59,14 +59,16 @@ Ext.define('pxp.controller.VoBoWf', {
     
     
    launch:function(){
-	   	Ext.regModel('Obs', {
-	            fields: [
-	                {name: 'obs',     type: 'string'}
-	            ],
-	            validations: [
-	                {type: 'presence', name: 'obs',message:"Indique una Observacion"}
-	            ]
-	     });
+	   	Ext.define("Obs", { extend: "Ext.data.Model", 
+	                         config:{
+	                           fields: [
+				                {name: 'obs',     type: 'string'}
+				               ],
+				                validations: [
+				                {type: 'presence', name: 'obs',message:"Indique una Observacion"}
+				                ]
+				              }
+				            });
    }, 
    
    checkMessages:function(){

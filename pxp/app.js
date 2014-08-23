@@ -22,7 +22,8 @@ Ext.application({
         'Ext.Audio',
         'Ext.field.Select',
         'Ext.field.Search',
-        'Ext.Toolbar'
+        'Ext.Toolbar',
+        'Ext.data.proxy.Rest'
     ],
     
     profiles: ['Phone','Tablet'],

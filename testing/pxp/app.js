@@ -76252,23 +76252,6 @@ Ext.define('Ext.viewport.Viewport', {
  * you should **not** use {@link Ext#onReady}.
  */
 
-Ext.define('pxp.model.LocalStorageCookie', {
-    extend: 'Ext.data.Model',
-               
-                        
-      
-
-    config:{
-      	  fields: ['id','key', 'value'],
-	      proxy: {
-	        type: 'localstorage',
-	        id: 'com.domain.cookies'
-	      }
-      	
-      }
-
-});
-
 /**
  * @author USER
  */
@@ -76291,19 +76274,31 @@ app.cookie.get('some_setting');
 
 */
 Ext.define('pxp.lib.LocalStorageCookie', {
+
+
   
     proxyId: 'com.domain.cookies',
-               
-                         
-                                      
-      
   
     constructor: function(config) {
     this.config = Ext.apply(this, config);
     
+    // Create the cookie model
+    
+   Ext.define("LocalStorageCookie",{
+      extend: "Ext.data.Model",	
+      config:{
+      	  fields: ['id','key', 'value'],
+	      proxy: {
+	        type: 'localstorage',
+	        id: this.proxyId
+	      }
+      	
+      }
+     
+    });
     // Create the cookie store 
     this.store = new Ext.data.Store({
-      model: "pxp.model.LocalStorageCookie"
+      model: "LocalStorageCookie"
     });   
     
     
@@ -76349,6 +76344,23 @@ Ext.define('pxp.lib.LocalStorageCookie', {
       return true;
     }
   }
+});
+
+Ext.define('pxp.model.LocalStorageCookie', {
+    extend: 'Ext.data.Model',
+               
+                        
+      
+
+    config:{
+      	  fields: ['id','key', 'value'],
+	      proxy: {
+	        type: 'localstorage',
+	        id: 'com.domain.cookies'
+	      }
+      	
+      }
+
 });
 
 /**
@@ -76567,7 +76579,15 @@ Ext.define('pxp.view.Login', {
                         itemId: 'passwordTextField',
                         name: 'passwordTextField',
                         required: true
-                    }
+                    },
+                    {
+		                    xtype: 'checkboxfield',
+		                    hideEmptyLabel: false,
+		                    label: 'Keep me logged in',
+		                    checked: true,
+		                    name: 'remember',
+		                    itemId: 'remember'
+		             }
                 ]
             },
             {
@@ -76591,12 +76611,14 @@ Ext.define('pxp.view.Login', {
     
     onLogInButtonTap: function () {
         var me = this,
-        usernameField = me.down('#userNameTextField'),
-        passwordField = me.down('#passwordTextField'),
-       
-        label = me.down('#signInFailedLabel'),
-        username = usernameField.getValue(),
-        password = passwordField.getValue();
+	        usernameField = me.down('#userNameTextField'),
+	        passwordField = me.down('#passwordTextField'),
+	        rememberField = me.down('#remember'), 
+	       
+	        label = me.down('#signInFailedLabel'),
+	        username = usernameField.getValue(),
+	        password = passwordField.getValue(),
+	        remember = rememberField.isChecked();
         
         
         label.hide();
@@ -76604,7 +76626,7 @@ Ext.define('pxp.view.Login', {
         // time to finish before executing the next  .
         var task = Ext.create('Ext.util.DelayedTask', function () {
            label.setHtml('');
-           me.fireEvent('signInCommand', me, username, password);
+           me.fireEvent('signInCommand', me, username, password, remember);
            
         });
         task.delay(500);
@@ -76621,10 +76643,16 @@ Ext.define('pxp.view.Login', {
     	var me = this;
     	
     	setTimeout(function(){
-    		var username = pxp.app.cookie.get('username');
-	        var password = pxp.app.cookie.get('password');
+    		var username = pxp.app.cookie.get('username'),
+    		    password = pxp.app.cookie.get('password'),
+    		    remember = pxp.app.cookie.get('remember');
+	        
+	        
+	        pxp.app.checkMenu = true;
+	        
 	        usernameField = me.down('#userNameTextField');
 	        passwordField = me.down('#passwordTextField');
+	        rememberField = me.down('#remember');
 	        
 	        label = me.down('#signInFailedLabel');
 	        
@@ -76634,9 +76662,18 @@ Ext.define('pxp.view.Login', {
 	        
 	        if(usernameField){
 	            usernameField.setValue(username);
+	        }
+	        
+	        if(rememberField){
+	        	if(remember){
+		        	rememberField.check();
+		        }	
+		        else{
+		        	rememberField.uncheck();
+		        }   
 	        }        
 
-       }, 100);
+       }, 300);
        
        me.callParent(arguments);    	
     }
@@ -76736,7 +76773,7 @@ Ext.define('pxp.controller.Login', {
         return { type: 'slide', direction: 'right' };
     },
 
-    onSignInCommand: function (view, username, password) {
+    onSignInCommand: function (view, username, password,remember) {
 
         var me = this,
             loginView = me.getLoginView();
@@ -76784,6 +76821,23 @@ Ext.define('pxp.controller.Login', {
                     me.signInSuccess(); 
                     
                     //pxp.app.cookie.set('register_key',register_key);
+                    if(remember){
+                    	console.log('remenber')
+                    	pxp.app.cookie.set('username',username);
+                        pxp.app.cookie.set('password',password);
+                        pxp.app.cookie.set('remember',true);
+                    }else{
+                    	console.log('!!!!!!remenber')
+                    	pxp.app.cookie.set('username','');
+                        pxp.app.cookie.set('password','');
+                        pxp.app.cookie.set('remember',false);
+                        
+                        view.down('#userNameTextField').setValue('');
+                        view.down('#passwordTextField').setValue('');
+                     
+                    }
+                    
+                    console.log('fin logincommand')
                     
                     
                 } else {
@@ -76802,9 +76856,8 @@ Ext.define('pxp.controller.Login', {
     },
 
     signInSuccess: function () {
+        console.log('signInSuccess');
         var loginView = this.getLoginView();
-        
-        
         loginView.setMasked(false);
         var headers = pxp.apiRest.genHeaders();
         console.log('headers',headers)
@@ -76836,10 +76889,12 @@ Ext.define('pxp.controller.Login', {
 	    pxp.app.storeMenu.load()
 	    
 	    var mainMenuView = this.getMainMenuView();
-        console.log(mainMenuView)
+        console.log('mainMenuView',mainMenuView);
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
+        console.log('storeMenu',pxp.app.storeMenu);
+         
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
-        
+        console.log('Ext.Viewport.animateActiveItem');
         
         
     },
@@ -76855,18 +76910,20 @@ Ext.define('pxp.controller.Login', {
 
         var me = this;
         Ext.Ajax.request({
-            url: 'api/logout/',
+            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/cerrarSesion'),
+            withCredentials: true,
+	        useDefaultXhrHeader: false,
             method: 'post',
             params: {
                 sessionToken: me.sessionToken
             },
             success: function (response) {
-
-                // TODO: You need to handle this condition.
+            	 location.reload();
+               
             },
             failure: function (response) {
 
-                // TODO: You need to handle this condition.
+               Ext.Msg.alert('Info...', 'Error al cerrar sesion', Ext.emptyFn);
             }
         });
 
@@ -77195,16 +77252,29 @@ Ext.define('pxp.controller.Interino', {
    },
     
    onSaveInterino:function(){
-    	pxp.app.showMask();
     	var me = this,
+    	    fecha_ini = me.getInterinoform().down('#fecha_ini'),
+    	    fecha_fin = me.getInterinoform().down('#fecha_fin'),
+    	    cargo_sup = me.getInterinoform().down('#hiddenCargo'),
     	    params = {
-                	id_cargo_suplente:  me.getInterinoform().down('#hiddenCargo').getValue(),
-                	fecha_ini:  me.getInterinoform().down('#fecha_ini').getFormattedValue('d/m/Y'),
-                	fecha_fin:  me.getInterinoform().down('#fecha_fin').getFormattedValue('d/m/Y'),
-                	descripcion:'Desde la interface mobiile'
-              };
+                	id_cargo_suplente:  cargo_sup.getValue(),
+                	fecha_ini:  fecha_ini.getFormattedValue('d/m/Y'),
+                	fecha_fin:  fecha_fin.getFormattedValue('d/m/Y'),
+                	descripcion:'Desde la interface mobile'
+             };
+        console.log('cargo....',cargo_sup.getValue())     
+        if(!cargo_sup.getValue()){
+         	Ext.Msg.alert('Info...', 'Necesitamos que indique el cargo suplente', Ext.emptyFn);
+            return
+         	
+        }    
+             
+        if(fecha_fin.getValue()<fecha_ini.getValue()){
+    		Ext.Msg.alert('Info...', 'La fecha final debe ser mayor o igual que la fecha inicial', Ext.emptyFn);
+            return
+    	}     
               
-              
+        pxp.app.showMask();      
     	Ext.Ajax.request({
 		        
 		        withCredentials: true,
@@ -77440,14 +77510,16 @@ Ext.define('pxp.controller.VoBoWf', {
     
     
    launch:function(){
-	   	Ext.regModel('Obs', {
-	            fields: [
-	                {name: 'obs',     type: 'string'}
-	            ],
-	            validations: [
-	                {type: 'presence', name: 'obs',message:"Indique una Observacion"}
-	            ]
-	     });
+	   	Ext.define("Obs", { extend: "Ext.data.Model", 
+	                         config:{
+	                           fields: [
+				                {name: 'obs',     type: 'string'}
+				               ],
+				                validations: [
+				                {type: 'presence', name: 'obs',message:"Indique una Observacion"}
+				                ]
+				              }
+				            });
    }, 
    
    checkMessages:function(){
@@ -78521,7 +78593,8 @@ Ext.application({
                     
                            
                            
-                     
+                      
+                             
       
     
     profiles: ['Phone','Tablet'],

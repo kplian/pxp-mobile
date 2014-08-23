@@ -51,7 +51,15 @@ Ext.define('pxp.view.Login', {
                         itemId: 'passwordTextField',
                         name: 'passwordTextField',
                         required: true
-                    }
+                    },
+                    {
+		                    xtype: 'checkboxfield',
+		                    hideEmptyLabel: false,
+		                    label: 'Keep me logged in',
+		                    checked: true,
+		                    name: 'remember',
+		                    itemId: 'remember'
+		             }
                 ]
             },
             {
@@ -75,12 +83,14 @@ Ext.define('pxp.view.Login', {
     
     onLogInButtonTap: function () {
         var me = this,
-        usernameField = me.down('#userNameTextField'),
-        passwordField = me.down('#passwordTextField'),
-       
-        label = me.down('#signInFailedLabel'),
-        username = usernameField.getValue(),
-        password = passwordField.getValue();
+	        usernameField = me.down('#userNameTextField'),
+	        passwordField = me.down('#passwordTextField'),
+	        rememberField = me.down('#remember'), 
+	       
+	        label = me.down('#signInFailedLabel'),
+	        username = usernameField.getValue(),
+	        password = passwordField.getValue(),
+	        remember = rememberField.isChecked();
         
         
         label.hide();
@@ -88,7 +98,7 @@ Ext.define('pxp.view.Login', {
         // time to finish before executing the next  .
         var task = Ext.create('Ext.util.DelayedTask', function () {
            label.setHtml('');
-           me.fireEvent('signInCommand', me, username, password);
+           me.fireEvent('signInCommand', me, username, password, remember);
            
         });
         task.delay(500);
@@ -105,10 +115,16 @@ Ext.define('pxp.view.Login', {
     	var me = this;
     	
     	setTimeout(function(){
-    		var username = pxp.app.cookie.get('username');
-	        var password = pxp.app.cookie.get('password');
+    		var username = pxp.app.cookie.get('username'),
+    		    password = pxp.app.cookie.get('password'),
+    		    remember = pxp.app.cookie.get('remember');
+	        
+	        
+	        pxp.app.checkMenu = true;
+	        
 	        usernameField = me.down('#userNameTextField');
 	        passwordField = me.down('#passwordTextField');
+	        rememberField = me.down('#remember');
 	        
 	        label = me.down('#signInFailedLabel');
 	        
@@ -118,9 +134,18 @@ Ext.define('pxp.view.Login', {
 	        
 	        if(usernameField){
 	            usernameField.setValue(username);
+	        }
+	        
+	        if(rememberField){
+	        	if(remember){
+		        	rememberField.check();
+		        }	
+		        else{
+		        	rememberField.uncheck();
+		        }   
 	        }        
 
-       }, 100);
+       }, 300);
        
        me.callParent(arguments);    	
     }

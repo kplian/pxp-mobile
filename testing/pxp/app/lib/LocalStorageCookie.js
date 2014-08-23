@@ -20,19 +20,31 @@ app.cookie.get('some_setting');
 
 */
 Ext.define('pxp.lib.LocalStorageCookie', {
+
+
   
     proxyId: 'com.domain.cookies',
-    requires: [
-        'Ext.data.Model',
-        'pxp.model.LocalStorageCookie'
-    ],
   
     constructor: function(config) {
     this.config = Ext.apply(this, config);
     
+    // Create the cookie model
+    
+   Ext.define("LocalStorageCookie",{
+      extend: "Ext.data.Model",	
+      config:{
+      	  fields: ['id','key', 'value'],
+	      proxy: {
+	        type: 'localstorage',
+	        id: this.proxyId
+	      }
+      	
+      }
+     
+    });
     // Create the cookie store 
     this.store = new Ext.data.Store({
-      model: "pxp.model.LocalStorageCookie"
+      model: "LocalStorageCookie"
     });   
     
     

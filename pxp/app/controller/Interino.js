@@ -65,16 +65,29 @@ Ext.define('pxp.controller.Interino', {
    },
     
    onSaveInterino:function(){
-    	pxp.app.showMask();
     	var me = this,
+    	    fecha_ini = me.getInterinoform().down('#fecha_ini'),
+    	    fecha_fin = me.getInterinoform().down('#fecha_fin'),
+    	    cargo_sup = me.getInterinoform().down('#hiddenCargo'),
     	    params = {
-                	id_cargo_suplente:  me.getInterinoform().down('#hiddenCargo').getValue(),
-                	fecha_ini:  me.getInterinoform().down('#fecha_ini').getFormattedValue('d/m/Y'),
-                	fecha_fin:  me.getInterinoform().down('#fecha_fin').getFormattedValue('d/m/Y'),
-                	descripcion:'Desde la interface mobiile'
-              };
+                	id_cargo_suplente:  cargo_sup.getValue(),
+                	fecha_ini:  fecha_ini.getFormattedValue('d/m/Y'),
+                	fecha_fin:  fecha_fin.getFormattedValue('d/m/Y'),
+                	descripcion:'Desde la interface mobile'
+             };
+        console.log('cargo....',cargo_sup.getValue())     
+        if(!cargo_sup.getValue()){
+         	Ext.Msg.alert('Info...', 'Necesitamos que indique el cargo suplente', Ext.emptyFn);
+            return
+         	
+        }    
+             
+        if(fecha_fin.getValue()<fecha_ini.getValue()){
+    		Ext.Msg.alert('Info...', 'La fecha final debe ser mayor o igual que la fecha inicial', Ext.emptyFn);
+            return
+    	}     
               
-              
+        pxp.app.showMask();      
     	Ext.Ajax.request({
 		        
 		        withCredentials: true,
