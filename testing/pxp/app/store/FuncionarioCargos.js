@@ -21,7 +21,7 @@ Ext.define('pxp.store.FuncionarioCargos', {
 	        type: 'ajax',
 	        withCredentials: true,
 	        useDefaultXhrHeader: false,
-	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Funcionario/listarFuncionarioCargo'),
+	        url: pxp.apiRest._url('organigrama/Funcionario/listarFuncionarioCargo'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',

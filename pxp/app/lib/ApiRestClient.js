@@ -38,7 +38,9 @@ Ext.define('pxp.lib.ApiRestClient', {
     
     _url:function(url)
     {    	
+    	//return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
     	return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
+    
     },
     
     setCredentialsPxp:function(user, pass){

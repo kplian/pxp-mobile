@@ -22,7 +22,7 @@ Ext.define('pxp.store.Cargos', {
 	        type: 'ajax',
 	        withCredentials: true,
 	        useDefaultXhrHeader: false,
-	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Cargo/listarCargo'),
+	        url: pxp.apiRest._url('organigrama/Cargo/listarCargo'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',

@@ -21,7 +21,7 @@ Ext.define('pxp.store.VoBoWf', {
 	        useDefaultXhrHeader: false,
 	        extraParams:{tipo_interfaz:'VoBoProceso'},
 	        //pageParam: 'page',//This parameter needs to be modified
-	        url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/listarProcesoWfMobile'),
+	        url: pxp.apiRest._url('workflow/ProcesoWf/listarProcesoWfMobile'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',

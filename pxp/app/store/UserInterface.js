@@ -9,8 +9,7 @@ Ext.define('pxp.store.UserInterface', {
     config: {  
 	    autoLoad: false,
 	    model: 'pxp.model.UserInterface',
-	    successProperty: 'success',
-	    headers:this.headers        
+	    successProperty: 'success'      
 	  }
 });
 

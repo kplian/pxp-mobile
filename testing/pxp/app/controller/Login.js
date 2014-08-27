@@ -85,7 +85,7 @@ Ext.define('pxp.controller.Login', {
          //Ext.data.JsonP.request({
          Ext.Ajax.request({
          	scope:this,  
-            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
+            url: pxp.apiRest._url('seguridad/Auten/verificarCredenciales'),
             headers:headers,
             withCredentials: true,     
             useDefaultXhrHeader:false,
@@ -150,7 +150,7 @@ Ext.define('pxp.controller.Login', {
 					          type: 'rest',
 					          headers:headers,
                               useDefaultXhrHeader:false,
-					          url:pxp.apiRest._url('pxp/lib/rest/seguridad/Gui/listarMenuMobile'),
+					          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
 					          reader : {
 						        type : 'json',
 						        rootProperty : 'datos'
@@ -187,7 +187,7 @@ Ext.define('pxp.controller.Login', {
 
         var me = this;
         Ext.Ajax.request({
-            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/cerrarSesion'),
+            url: pxp.apiRest._url('seguridad/Auten/cerrarSesion'),
             withCredentials: true,
 	        useDefaultXhrHeader: false,
             method: 'post',

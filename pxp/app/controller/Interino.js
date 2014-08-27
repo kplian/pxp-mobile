@@ -92,7 +92,7 @@ Ext.define('pxp.controller.Interino', {
 		        
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/asignarMiSuplente'),
+	            url: pxp.apiRest._url('organigrama/Interinato/asignarMiSuplente'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,
@@ -138,7 +138,7 @@ Ext.define('pxp.controller.Interino', {
 		        
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/eliminarInterinato'),
+	            url: pxp.apiRest._url('organigrama/Interinato/eliminarInterinato'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,

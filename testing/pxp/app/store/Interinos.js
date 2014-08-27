@@ -20,7 +20,7 @@ Ext.define('pxp.store.Interinos', {
 	        withCredentials: true,
 	        useDefaultXhrHeader: false,
 	        //pageParam: 'page',//This parameter needs to be modified
-	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/listarMisSuplentes'),
+	        url: pxp.apiRest._url('organigrama/Interinato/listarMisSuplentes'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',

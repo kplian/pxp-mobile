@@ -76403,7 +76403,9 @@ Ext.define('pxp.lib.ApiRestClient', {
     
     _url:function(url)
     {    	
+    	//return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
     	return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
+    
     },
     
     setCredentialsPxp:function(user, pass){
@@ -76710,8 +76712,7 @@ Ext.define('pxp.store.UserInterface', {
     config: {  
 	    autoLoad: false,
 	    model: 'pxp.model.UserInterface',
-	    successProperty: 'success',
-	    headers:this.headers        
+	    successProperty: 'success'      
 	  }
 });
 
@@ -76803,7 +76804,7 @@ Ext.define('pxp.controller.Login', {
          //Ext.data.JsonP.request({
          Ext.Ajax.request({
          	scope:this,  
-            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/verificarCredenciales'),
+            url: pxp.apiRest._url('seguridad/Auten/verificarCredenciales'),
             headers:headers,
             withCredentials: true,     
             useDefaultXhrHeader:false,
@@ -76868,7 +76869,7 @@ Ext.define('pxp.controller.Login', {
 					          type: 'rest',
 					          headers:headers,
                               useDefaultXhrHeader:false,
-					          url:pxp.apiRest._url('pxp/lib/rest/seguridad/Gui/listarMenuMobile'),
+					          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
 					          reader : {
 						        type : 'json',
 						        rootProperty : 'datos'
@@ -76905,7 +76906,7 @@ Ext.define('pxp.controller.Login', {
 
         var me = this;
         Ext.Ajax.request({
-            url: pxp.apiRest._url('pxp/lib/rest/seguridad/Auten/cerrarSesion'),
+            url: pxp.apiRest._url('seguridad/Auten/cerrarSesion'),
             withCredentials: true,
 	        useDefaultXhrHeader: false,
             method: 'post',
@@ -77277,7 +77278,7 @@ Ext.define('pxp.controller.Interino', {
 		        
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/asignarMiSuplente'),
+	            url: pxp.apiRest._url('organigrama/Interinato/asignarMiSuplente'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,
@@ -77323,7 +77324,7 @@ Ext.define('pxp.controller.Interino', {
 		        
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/eliminarInterinato'),
+	            url: pxp.apiRest._url('organigrama/Interinato/eliminarInterinato'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,
@@ -77533,7 +77534,7 @@ Ext.define('pxp.controller.VoBoWf', {
 		        //headers: pxp.apiRest.genHeaders(),
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/chequeaEstadosMobile'),
+	            url: pxp.apiRest._url('workflow/ProcesoWf/chequeaEstadosMobile'),
 		        params: meparams,
 		        method: 'POST',
 		        scope: me,
@@ -77634,7 +77635,7 @@ Ext.define('pxp.controller.VoBoWf', {
     	Ext.Ajax.request({
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/evaluaPlantillaEstado'),
+	            url: pxp.apiRest._url('workflow/ProcesoWf/evaluaPlantillaEstado'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,
@@ -77691,7 +77692,7 @@ Ext.define('pxp.controller.VoBoWf', {
 		    	Ext.Ajax.request({
 				        withCredentials: true,
 	                    useDefaultXhrHeader: false,
-	                    url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/anteriorEstadoProcesoWf '),
+	                    url: pxp.apiRest._url('workflow/ProcesoWf/anteriorEstadoProcesoWf '),
 				        params: params,
 				        method: 'POST',
 				        scope: me,
@@ -77760,7 +77761,7 @@ Ext.define('pxp.controller.VoBoWf', {
 				        
 				        withCredentials: true,
 	                    useDefaultXhrHeader: false,
-			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
+			            url: pxp.apiRest._url('workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
 				        params: params,
 				        method: 'POST',
 				        scope: me,
@@ -78081,7 +78082,7 @@ Ext.define('pxp.store.Interinos', {
 	        withCredentials: true,
 	        useDefaultXhrHeader: false,
 	        //pageParam: 'page',//This parameter needs to be modified
-	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Interinato/listarMisSuplentes'),
+	        url: pxp.apiRest._url('organigrama/Interinato/listarMisSuplentes'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',
@@ -78226,7 +78227,7 @@ Ext.define('pxp.store.FuncionarioCargos', {
 	        type: 'ajax',
 	        withCredentials: true,
 	        useDefaultXhrHeader: false,
-	        url: pxp.apiRest._url('pxp/lib/rest/organigrama/Funcionario/listarFuncionarioCargo'),
+	        url: pxp.apiRest._url('organigrama/Funcionario/listarFuncionarioCargo'),
 	        reader : {
 		        type : 'json',
 		        rootProperty : 'datos',
@@ -78635,7 +78636,8 @@ Ext.application({
         	_host     : '172.17.45.229',
             _port     : '80',
             _protocol : 'http',
-		    _base_url : 'kerp_capacitacion'
+            //_base_url : 'kerp_capacitacion/pxp/lib/rest/'
+		    _base_url : 'pxp-mobile/rest'
         }); 
         
     	

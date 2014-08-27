@@ -84,7 +84,7 @@ Ext.define('pxp.controller.VoBoWf', {
 		        //headers: pxp.apiRest.genHeaders(),
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/chequeaEstadosMobile'),
+	            url: pxp.apiRest._url('workflow/ProcesoWf/chequeaEstadosMobile'),
 		        params: meparams,
 		        method: 'POST',
 		        scope: me,
@@ -185,7 +185,7 @@ Ext.define('pxp.controller.VoBoWf', {
     	Ext.Ajax.request({
 		        withCredentials: true,
 	            useDefaultXhrHeader: false,
-	            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/evaluaPlantillaEstado'),
+	            url: pxp.apiRest._url('workflow/ProcesoWf/evaluaPlantillaEstado'),
 		        params: params,
 		        method: 'POST',
 		        scope: me,
@@ -242,7 +242,7 @@ Ext.define('pxp.controller.VoBoWf', {
 		    	Ext.Ajax.request({
 				        withCredentials: true,
 	                    useDefaultXhrHeader: false,
-	                    url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/anteriorEstadoProcesoWf '),
+	                    url: pxp.apiRest._url('workflow/ProcesoWf/anteriorEstadoProcesoWf '),
 				        params: params,
 				        method: 'POST',
 				        scope: me,
@@ -311,7 +311,7 @@ Ext.define('pxp.controller.VoBoWf', {
 				        
 				        withCredentials: true,
 	                    useDefaultXhrHeader: false,
-			            url: pxp.apiRest._url('pxp/lib/rest/workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
+			            url: pxp.apiRest._url('workflow/ProcesoWf/siguienteEstadoProcesoWfMobile '),
 				        params: params,
 				        method: 'POST',
 				        scope: me,

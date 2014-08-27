@@ -66,7 +66,8 @@ Ext.application({
         	_host     : '172.17.45.229',
             _port     : '80',
             _protocol : 'http',
-		    _base_url : 'kerp_capacitacion'
+            //_base_url : 'kerp_capacitacion/pxp/lib/rest/'
+		    _base_url : 'pxp-mobile/rest'
         }); 
         
     	
