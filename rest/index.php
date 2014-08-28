@@ -52,17 +52,27 @@ $app->get(
 		$cookies = $app->request->cookies;
 		
 		//var_dump($app->request->cookies);
-    	if ( isset($cookies['PHPSESSID']) && isset($_SESSION["_SESION_REST"])) {
-			
-              $resp = $_SESSION["_SESION_REST"]->doGet("$sistema/$clase_control/$metodo" ,$_GET );
-		      echo $resp;
-		      exit;
+    	if ( isset($cookies['PHPSESSID'])) {
+			 if(isset($_SESSION["_SESION_REST"]){
+			     $resp = $_SESSION["_SESION_REST"]->doGet("$sistema/$clase_control/$metodo" ,$_GET );
+                 echo $resp;
+                 exit;            
+			 }
+             else{
+                 //error por no mandar credenciales en los headers
+                 echo "{success:false,                
+                        mensaje_tec:'El objeto se encuentra inactivo',
+                        mensaje:'El objeto se encuentra inactivo'}";    
+                    exit;
+                 
+             }
+              
            } 
         else {
 			//error por no mandar credenciales en los headers
             echo "{success:false,                
-                mensaje_tec:'error por no mandar credenciales en los headers',
-                mensaje:'error por no mandar credenciales en los headers'}";    
+                mensaje_tec:'No tiene una sesion activa',
+                mensaje:'No tiene una sesion activa'}";    
             exit;
 		}
     }
