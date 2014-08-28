@@ -53,7 +53,7 @@ $app->get(
 		
 		//var_dump($app->request->cookies);
     	if ( isset($cookies['PHPSESSID'])) {
-			 if(isset($_SESSION["_SESION_REST"]){
+			 if(isset($_SESSION["_SESION_REST"])){
 			     $resp = $_SESSION["_SESION_REST"]->doGet("$sistema/$clase_control/$metodo" ,$_GET );
                  echo $resp;
                  exit;            
