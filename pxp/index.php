@@ -1,6 +1,6 @@
 <?php 
 session_start();
-session_set_cookie_params (0,'/', '' ,true ,false);
+session_set_cookie_params (0,'/', '' ,false ,false);
 if ($_SERVER['SERVER_PORT']!='443') { 
     // Fuerza SSL en esta página 
     //header("Location:https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']); 
