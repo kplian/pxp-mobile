@@ -139,7 +139,7 @@ $app->post(
 		//var_dump($app->request->cookies);
         if ( isset($cookies['PHPSESSID']) && isset($_SESSION["_SESION_REST"])) {
             
-              $resp = $_SESSION["_SESION_REST"]->doGet("$sistema/$clase_control/$metodo" ,$_POST );
+              $resp = $_SESSION["_SESION_REST"]->doPost("$sistema/$clase_control/$metodo" ,$_POST );
               echo $resp;
               exit;
            } 
