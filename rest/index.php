@@ -9,7 +9,7 @@ include 'PxpRestClient.php';
  * If you are using Composer, you can skip this step.
  */
 session_start();
-session_set_cookie_params (0,'/', '' ,false ,false);
+session_set_cookie_params (0,'/', '' ,true ,true);
 include 'config.php';
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
