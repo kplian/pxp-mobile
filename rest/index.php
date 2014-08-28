@@ -11,10 +11,7 @@ include 'PxpRestClient.php';
 session_start();
 include 'config.php';
 require 'Slim/Slim.php';
-
-
 \Slim\Slim::registerAutoloader();
-
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -27,12 +24,8 @@ $app = new \Slim\Slim(array(
     'log.level' => \Slim\Log::EMERGENCY,
     'debug' => false
 ));
-
-
-
 $app->response->headers->set('Content-Type', 'application/json');
 $headers = $app->request->headers;
-
 header('Access-Control-Allow-Origin: ' . $headers['Origin']);
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: pxp-user, content-type, Php-Auth-User, Php-Auth-Pw');
@@ -86,6 +79,7 @@ $app->post(
     		$_SESSION["_SESION_REST"]->addHeader("Pxp-user: ".$headers['Pxp-user']);
     		//echo "xxxx";
     		$resp = $_SESSION["_SESION_REST"]->doPost('seguridad/Auten/verificarCredenciales',array("_dc"=>'1406749352192'));
+            session_regenerate_id();
             echo $resp;    
             exit;
             		
@@ -128,8 +122,6 @@ $app->post(
     }
 ); 
 
-
-
 $app->post(
 	 
     '/:sistema/:clase_control/:metodo',
@@ -153,8 +145,6 @@ $app->post(
     }
 ); 
 
-
-  	
 $app->options('/:sistema/:clase_control/:metodo', function ($sistema,$clase_control,$metodo) use ($app) {
 	$headers = $app->request->headers;
 	
@@ -163,9 +153,7 @@ $app->options('/:sistema/:clase_control/:metodo', function ($sistema,$clase_cont
 	header('Access-Control-Allow-Headers: pxp-user, content-type, Php-Auth-User, Php-Auth-Pw');
 	header('Access-Control-Allow-Credentials: true');	
 	header('Access-Control-Max-Age: 1728000');
-	
-	
-	
+
 });
 
 /**
