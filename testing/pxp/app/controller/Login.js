@@ -148,8 +148,8 @@ Ext.define('pxp.controller.Login', {
 	        	            
 	        	           proxy: {
 					          type: 'rest',
-					          headers:headers,
-                              useDefaultXhrHeader:false,
+					          autoLoad: true,
+	                          simpleSortMode: true,
 					          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
 					          reader : {
 						        type : 'json',

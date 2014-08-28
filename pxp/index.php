@@ -1,9 +1,8 @@
 <?php 
-/*
 if ($_SERVER['SERVER_PORT']!='443') { 
     // Fuerza SSL en esta página 
     header("Location:https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']); 
-}*/
+}
 ?><!DOCTYPE HTML>
 <html manifest="" lang="en-US">
 <head>
