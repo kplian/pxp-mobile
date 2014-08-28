@@ -147,7 +147,7 @@ Ext.define('pxp.controller.Login', {
         pxp.app.storeMenu = Ext.create('pxp.store.UserInterface',{
 	        	            
 	        	           proxy: {
-					          type: 'rest',
+					          type: 'ajax',
 					          withCredentials: true,
 	                          useDefaultXhrHeader: false,
 					          autoLoad: true,
