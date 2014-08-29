@@ -76381,8 +76381,7 @@ Ext.define('pxp.lib.ApiRestClient', {
     _port : '80',
     _user : null,
     _pass : null,
-    _protocol : 'http',
-	_pxp : false,
+    _pxp : false,
 	_request_number : 1,
 	_first_connection : true,
 	_error_number : 0,
@@ -76404,8 +76403,8 @@ Ext.define('pxp.lib.ApiRestClient', {
     _url:function(url)
     {    	
     	//return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
-    	return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
-    
+    	var resp =this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
+        return resp;
     },
     
     setCredentialsPxp:function(user, pass){
@@ -76866,7 +76865,9 @@ Ext.define('pxp.controller.Login', {
         pxp.app.storeMenu = Ext.create('pxp.store.UserInterface',{
 	        	            
 	        	           proxy: {
-					          type: 'rest',
+					          type: 'ajax',
+					          withCredentials: true,
+	                          useDefaultXhrHeader: false,
 					          autoLoad: true,
 	                          simpleSortMode: true,
 					          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
@@ -78578,8 +78579,8 @@ Ext.define('pxp.view.interino.Interino', {
     in other places (such as Controllers). If Sencha Cmd cannot merge your
     changes and its generated code, it will produce a "merge conflict" that you
     will need to resolve manually.
-*/
-Ext.application({
+*/ 
+Ext.application({ 
     name: 'pxp',
 
                
@@ -78633,15 +78634,14 @@ Ext.application({
     launch: function() {
     	//aPI REST CONFIG
         pxp.apiRest = Ext.create('pxp.lib.ApiRestClient',{
-        	_host     : '172.17.45.49',
-            _port     : '80',
-            _protocol : 'http',
+        	_host     : 'http://erpmobile.obairlines.bo/',
+            _port     : '443',
+            _protocol : 'https',
             //_base_url : 'kerp_capacitacion/pxp/lib/rest/'
-		    _base_url : 'pxp-mobile/rest'
+		    _base_url : 'rest'
         }); 
         
-    	
-    	pxp.app = this;
+        pxp.app = this;
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
         pxp.app.cookie = new pxp.lib.LocalStorageCookie();
