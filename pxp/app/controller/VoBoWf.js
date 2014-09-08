@@ -93,8 +93,7 @@ Ext.define('pxp.controller.VoBoWf', {
 		           console.log('...  ',Response);
 		           
 		           if(!Response.ROOT.error){
-		           	  //setTimeout((function(){me.checkMessages()}), 180000);
-		           	  setTimeout((function(){me.checkMessages()}), 5000);
+		           	  setTimeout((function(){me.checkMessages()}), _CONFIG._time_period);
 		              console.log('fecha_pivote',Response.ROOT.datos.fecha_pivote)
 		              me.getVobowflist().setPivote(Response.ROOT.datos.fecha_pivote);
 		              

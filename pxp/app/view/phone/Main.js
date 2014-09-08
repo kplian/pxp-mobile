@@ -21,7 +21,7 @@
 				xtype : 'mainmenuview',
 				width : 250,
 				style: 'background-color: #ddf;',
-                ui: 'dark'
+                ui: 'light'
 			} 
 
         ]

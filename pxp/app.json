@@ -39,7 +39,10 @@
      *      }
      */
     "js": [
-    
+        {
+            "path": "resources/js/config.js",
+            "update": "full" 
+        },    
         {
             "path": "resources/js/base64.js",
             "update": "full" 
@@ -106,7 +109,14 @@
         {
             "path": "resources/css/slidenav.css",
             "update": "full"
+        },
+        
+        {
+            "path": "resources/css/tabla_resposive.css",
+            "update": "full"
         }
+        
+        
     ],
 
     /**

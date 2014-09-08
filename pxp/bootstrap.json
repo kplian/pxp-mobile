@@ -6,6 +6,7 @@
  */
 {"id":"554743d7-7cf8-4459-9049-09ac7b3f8c6e",
 "js":[{"path":"../touch/sencha-touch.js"},
+{"path":"resources/js/config.js","update":"full"},
 {"path":"resources/js/base64.js","update":"full"},
 {"path":"resources/js/Serpent.js","update":"full"},
 {"path":"resources/js/rijndael.js","update":"full"},
@@ -14,5 +15,7 @@
 {"path":"resources/js/md5.js","update":"full"},
 {"path":"bootstrap.js"},{"path":"app.js","update":"delta"}],
 "css":[
+
 {"path":"resources/css/app.css","update":"delta"},
-{"path":"resources/css/slidenav.css","update":"full"}]}
+{"path":"resources/css/slidenav.css","update":"full"},
+{"path":"resources/css/tabla_resposive.css","update":"delta"}]}
