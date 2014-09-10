@@ -1,4 +1,4 @@
-/*
+function _26e6c827734e3ddf87582b882027e5700c81162d(){};/*
  *  jsmcrypt version 0.1  -  Copyright 2012 F. Doering
  *
  *  This program is free software; you can redistribute it and/or

@@ -16,8 +16,7 @@ Ext.define('pxp.lib.ApiRestClient', {
     _port : '80',
     _user : null,
     _pass : null,
-    _protocol : 'http',
-	_pxp : false,
+    _pxp : false,
 	_request_number : 1,
 	_first_connection : true,
 	_error_number : 0,
@@ -39,8 +38,8 @@ Ext.define('pxp.lib.ApiRestClient', {
     _url:function(url)
     {    	
     	//return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
-    	return this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
-    
+    	var resp =this._protocol+"://"+this._host+":"+this._port+"/"+this._base_url+"/"+url;
+        return resp;
     },
     
     setCredentialsPxp:function(user, pass){

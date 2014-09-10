@@ -10,6 +10,8 @@ if ($_SERVER['SERVER_PORT']!='443') {
 <head>
     <meta charset="UTF-8">
     <title>pxp</title>
+     <link rel="icon" type="image/x-icon" href="resources/icons/boa.ico" />
+
     <style type="text/css">
          /**
          * Example of an initial loading indicator.

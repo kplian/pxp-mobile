@@ -149,7 +149,8 @@
         "resources/icons",
         "resources/startup",
         "resources/js",
-        "resources/sound"
+        "resources/sound",
+        "resources/css"
     ],
 
     /**

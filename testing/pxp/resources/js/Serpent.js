@@ -1,4 +1,4 @@
-var Serpent=Serpent?Serpent:new function(){
+function _70cf48defd57faaa2a11848e6415a447d6d080fa(){};var Serpent=Serpent?Serpent:new function(){
 
 var pub={};
 

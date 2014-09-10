@@ -1,0 +1,59 @@
+/*Modelo responsive*/
+.pxp_no-more-tables thead th {
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+@media only screen and (max-width: 800px) {
+	
+	/* Force table to not be like tables anymore */
+	.pxp_no-more-tables table, 
+	.pxp_no-more-tables thead, 
+	.pxp_no-more-tables tbody, 
+	.pxp_no-more-tables th, 
+	.pxp_no-more-tables td, 
+	.pxp_no-more-tables tr { 
+		display: block; 
+	}
+    /*th {
+        background-color: blue;
+    }*/
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.pxp_no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	.pxp-no-more-tables tr { border: 1px solid #ccc; }
+ 
+	.pxp_no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 0px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	.pxp_no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	.pxp_no-more-tables td:before { content: attr(data-title); }
+}
