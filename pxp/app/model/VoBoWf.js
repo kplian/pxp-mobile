@@ -32,7 +32,9 @@ Ext.define('pxp.model.VoBoWf', {
 				'usu_reg_ew',
 				'nombre_tipo_estado',
 				'nombre_subsistema',
-				'codigo_subsistema'
+				'codigo_subsistema',
+				'prioridad',
+				'revisado_asistente'
 			]
      }  
 });

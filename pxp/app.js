@@ -24,13 +24,15 @@ Ext.application({
         'Ext.Toolbar',
         'Ext.data.proxy.Rest'
     ],
-    
+      
     profiles: ['Phone','Tablet'],
 
     views: [
         'MainMenu',
         'Login',
-        'interino.Interino'
+        'interino.Interino',
+        'vobowf.VoBoWf' 
+        
     ],
     
     controllers : [
