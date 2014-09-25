@@ -90,7 +90,7 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 					               "<font color='red'>&nbsp;&nbsp;{nombre_subsistema} &nbsp;&nbsp;</font>",
 						 
 					            '<tpl default>',
-					               "<font color='green'>{nombre_subsistema}</font>",
+					               "<font color='green'>&nbsp;&nbsp;{nombre_subsistema}</font>",
 					            
 					      '</tpl>', 
 					        
