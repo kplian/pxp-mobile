@@ -1,9 +1,9 @@
 <?php 
 session_start();
-session_set_cookie_params (0,'/', '' ,false ,false);
+session_set_cookie_params (0,'/', '' ,true ,true);
 if ($_SERVER['SERVER_PORT']!='443') { 
     // Fuerza SSL en esta página 
-    //header("Location:https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']); 
+    header("Location:https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']); 
 }
 ?><!DOCTYPE HTML>
 <html manifest="cache.appcache" lang="en-US">
@@ -11,6 +11,7 @@ if ($_SERVER['SERVER_PORT']!='443') {
     <meta charset="UTF-8">
     <title>ERP</title>
     <link rel="icon" type="image/x-icon" href="resources/icons/boa.ico" />
+    
     <style type="text/css">
          /**
          * Example of an initial loading indicator.

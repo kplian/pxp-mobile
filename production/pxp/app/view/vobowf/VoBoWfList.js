@@ -76,11 +76,19 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 		    	itemTpl: new Ext.XTemplate("<div><table width='100%'>",
 		    	          "<tr>",
 						  "<td colspan=2 style='float: left;' width='100%'><b>",
-						  
+						  '<tpl switch="revisado_asistente">',
+					            '<tpl  case="si">',
+					               "<img src = 'resources/img/ball_green.png' align='center' width='12' height='12'/>",
+						 
+					            '<tpl default>',
+					               "<img src = 'resources/img/ball_white.png' align='center' width='12' height='12'/>",
+					            
+					      '</tpl>', 
 						  
 						  '<tpl switch="codigo_subsistema">',
 					            '<tpl  case="TES">',
-					               "<font color='red'>{nombre_subsistema}</font>",
+					               "<font color='red'>&nbsp;&nbsp;{nombre_subsistema} &nbsp;&nbsp;</font>",
+						 
 					            '<tpl default>',
 					               "<font color='green'>{nombre_subsistema}</font>",
 					            
@@ -90,18 +98,19 @@ Ext.define('pxp.view.vobowf.VoBoWfList', {
 						  "</tr>",
 						   	  
 						  "<tr>",
-						   "<td colspan=2 style='float: left;' width='100%'> <b>{desc_tipo_proceso}</b> ({usr_reg})</td>"+
+						   "<td colspan=2 style='float: left;' width='100%'> <b>{desc_tipo_proceso}</b> ({usr_reg})</td>",
 						   
-						  "</tr>"+
-						  "<tr>"+
-						    "<td colspan=2 style='float: left;' width='100%'>#Tramite: {nro_tramite}</b></td>"+
-						  "</tr>"+
-						  "<tr>"+
-						    "<td colspan=2 style='float: left;' width='100%'>Estado: {nombre_tipo_estado} ({usu_reg_ew})</td>"+
-						  "</tr>"+
-						  "<tr>"+
-						    "<td colspan=2 style='float: left;' width='100%'><p>Resp: {nombre_depto} {desc_funcionario1}  </p></td>"+
-						  "</tr></table></div>")
+						  "</tr>",
+						  "<tr>",
+						    "<td colspan=2 style='float: left;' width='100%'>#Tramite: {nro_tramite}</b></td>",
+						  "</tr>",
+						  "<tr>",
+						    "<td colspan=2 style='float: left;' width='100%'>Estado: {nombre_tipo_estado} ({usu_reg_ew})</td>",
+						  "</tr>",
+						  "<tr>",
+						    "<td colspan=2 style='float: left;' width='100%'><p>Resp: {nombre_depto} {desc_funcionario1}  </p></td>",
+						  "</tr></table>",
+						  "</div>")
      
 	   	
 	   }]);

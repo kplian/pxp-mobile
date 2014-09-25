@@ -1,1 +1,4 @@
 pxp/resources/js/config.js
+production/pxp/resources/js/config.js
+rest/config.php
+production/pxp/rest/config.php
