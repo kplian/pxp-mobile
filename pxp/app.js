@@ -31,7 +31,8 @@ Ext.application({
         'MainMenu',
         'Login',
         'interino.Interino',
-        'vobowf.VoBoWf' 
+        'vobowf.VoBoWf' ,
+        'vobowfwzd.VoBoWfWzd'
         
     ],
     
@@ -40,6 +41,7 @@ Ext.application({
         'Main',
         'Interino',
         'VoBoWf',
+        'VoBoWfWzd',
         'VoBoFondo'
     ],
 

@@ -5,13 +5,12 @@ if ($_SERVER['SERVER_PORT']!='443') {
     // Fuerza SSL en esta página 
     header("Location:https://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']); 
 }
-?><!DOCTYPE HTML>
+?>
+<!DOCTYPE HTML>
 <html manifest="cache.appcache" lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>ERP</title>
-    <link rel="icon" type="image/x-icon" href="resources/icons/boa.ico" />
-    
+    <title>pxp</title>
     <style type="text/css">
          /**
          * Example of an initial loading indicator.
@@ -73,7 +72,7 @@ g.push(a)});p=g.length;0==p?e.status==e.IDLE?a():k=a:g.forEach(function(a){funct
 var g=[],h=!1,k=function(){},m=function(){e.swapCache();h=!0;k()},p;N("message",M,!1);if(e.status==e.UPDATEREADY)m();else if(e.status==e.CHECKING||e.status==e.DOWNLOADING)e.onupdateready=m,e.onnoupdate=e.onobsolete=function(){k()};!1!==navigator.onLine?d():F("online",d,!1)}var k=b.assets,h=k.length,n;D=b;F("message",M,!1);0==h?g():k.forEach(function(a){var b=x(a.key);null===b?K(a,function(b){a.remote||A(a.key,b);c(a,b)},function(){c(a,"")}):c(a,b)})}function O(b){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var c=
 document.createElement("style");c.appendChild(document.createTextNode("@media screen and (orientation: portrait) {@-ms-viewport {width: 320px !important;}}@media screen and (orientation: landscape) {@-ms-viewport {width: 560px !important;}}"));document.getElementsByTagName("head")[0].appendChild(c)}c=/MSIE 10/.test(navigator.userAgent)?/complete|loaded/:/interactive|complete|loaded/;null!==m.readyState.match(c)?E(b):F("DOMContentLoaded",function(){navigator.standalone?setTimeout(function(){setTimeout(function(){E(b)},
 1)},1):setTimeout(function(){E(b)},1)},!1)}var J=function(){},v=[],m=k.document,p=m.head||m.getElementsByTagName("head")[0],F=k.addEventListener,N=k.removeEventListener,H=JSON.parse,G=m.createElement("a"),y=m.location,I=y.protocol+"//"+y.hostname+y.pathname+y.search,r="app.json",L=!1,D,e,w;try{w=k.localStorage,e=k.applicationCache}catch(Q){}if("undefined"===typeof k.Ext)var l=k.Ext={};l.blink=function(b){var c=x(b.id+"-"+I+r);B("viewport","width\x3ddevice-width, initial-scale\x3d1.0, maximum-scale\x3d1.0, minimum-scale\x3d1.0, user-scalable\x3dno");
-B("apple-mobile-web-app-capable","yes");B("apple-touch-fullscreen","yes");c?(b=new t(c),O(b)):s(r,function(c){b=new t(c);b.store();O(b)})}})(this);Ext.blink({id:"fabcef6b-8c69-4945-8402-9eb04cf649f7"});</script>
+B("apple-mobile-web-app-capable","yes");B("apple-touch-fullscreen","yes");c?(b=new t(c),O(b)):s(r,function(c){b=new t(c);b.store();O(b)})}})(this);Ext.blink({id:"be669978-49e2-4c6a-96a4-128ba9b3f815"});</script>
 </head>
 <body>
     <div id="appLoadingIndicator">
