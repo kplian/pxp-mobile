@@ -34,7 +34,8 @@ Ext.define('pxp.model.VoBoWf', {
 				'nombre_subsistema',
 				'codigo_subsistema',
 				'prioridad',
-				'revisado_asistente'
+				'revisado_asistente',
+				'contador_estados'
 			]
      }  
 });

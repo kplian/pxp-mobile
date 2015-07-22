@@ -22,6 +22,7 @@ Ext.define('pxp.view.vobowfwzd.VoBoWfWzd', {
     config: {
         //fullscreen: true,
         layout: 'fit',
+        scrollable:false,
         items: [
 	           {
 	                xtype: 'vobowflistwzd',

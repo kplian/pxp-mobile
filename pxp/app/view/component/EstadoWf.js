@@ -64,17 +64,6 @@ Ext.define('pxp.view.component.EstadoWf', {
 			                scope: this
 			            }
                    	  
-                   	},
-                   { 
-                   	 xtype: 'button',
-                   	 text:  'Done',
-                   	 align: 'right',
-                   	 listeners: {
-			                tap: function (searchField) {
-			                    searchField.up('estadowfcmp').onDone();
-			                 },
-			                scope: this
-			            }
                    	}
                 ]
             }
@@ -109,7 +98,13 @@ Ext.define('pxp.view.component.EstadoWf', {
                 ],
             store: me.store,
             itemTpl:'<p><b>{nombre_estado}</b></p><p> Código: {codigo_estado}</p>',
-            masked: { xtype: 'loadmask', message: 'loading' }
+            masked: { xtype: 'loadmask', message: 'loading' },
+            listeners: {
+	                itemsingletap: function (searchField, index, target, record, e, eOpts) {
+	                    searchField.up('estadowfcmp').onTap(record);
+	                 },
+	                scope: me
+	        }
 
         }]);
 	   
@@ -151,18 +146,13 @@ Ext.define('pxp.view.component.EstadoWf', {
     },
     idColumn:'id_tipo_estado',
     displayColumn:'nombre_estado',
-    
-    onDone:function(record){
-    	var me = this,
-    	    rec = me.down('list').getSelection();
-    	
-    	console.log('rec ....')
-    	if(rec[0]){
-    	   me.getCmpText().setValue(rec[0].data['nombre_estado']);
-    	   me.getCmpHidden().setValue(rec[0].data['id_tipo_estado']);
+    onTap:function(record){
+    	var me = this;
+    	if(record){
+    	   me.getCmpText().setValue(record.data['nombre_estado']);
+    	   me.getCmpHidden().setValue(record.data['id_tipo_estado']);
     	   me.hide();
-    	   me.fireEvent('done', me, rec[0].data['nombre_estado'], rec[0].data['id_tipo_estado']);
-    	   console.log('el valor asignado directamente es ...',me.getCmpHidden().getValue())
+    	   me.fireEvent('done', me, record.data['nombre_estado'], record.data['id_tipo_estado'], record);
     	}
     	
     },

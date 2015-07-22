@@ -66,6 +66,9 @@ Ext.define('pxp.controller.VoBoWfWzd', {
             },
             'estadowfcmp': {
             	'done': 'onEstadoWfDone'
+            },
+            'deptowfcmp': {
+            	'done': 'onDeptoWfDone'
             }
         } 
     },
@@ -84,11 +87,10 @@ Ext.define('pxp.controller.VoBoWfWzd', {
     	var me = this,
     	    store = me.funcionariowfcmp.down('list').getStore();
     	
-    	console.log('formulario', me.Formestsigwzd.down('#id_tipo_estado'))
-    	console.log('..........', me.Formestsigwzd.down('#id_tipo_estado').getValue())
-    	store.getProxy().setExtraParams({'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
-					    	             'id_tipo_estado': me.Formestsigwzd.down('#id_tipo_estado').getValue(),
-					    	             'fecha': (new Date()).toJSON()});
+    	store.getProxy().setExtraParams({ 'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
+    									  'id_tipo_estado': me.Formestsigwzd.down('#id_tipo_estado').getValue(),
+					    	              'id_depto_wf': me.Formestsigwzd.down('#id_depto').getValue(),
+					    	              'fecha': (new Date()).toJSON()});
 								
     	store.load({start: 0, limit: 20, page: 1});
     	me.funcionariowfcmp.show();
@@ -108,13 +110,8 @@ Ext.define('pxp.controller.VoBoWfWzd', {
     	
     },
     
-    onEstadoWfDone: function(obj,value,id){
-    	
-    	var me = this;
-    	me.funcionariowfcmp.getCmpText().reset();
-	    me.funcionariowfcmp.getCmpHidden().reset();
-    },
-   launch:function(){
+    
+   launch: function(){
 	   	Ext.define("Obs", { extend: "Ext.data.Model", 
 	                         config:{
 	                           fields: [
@@ -184,32 +181,24 @@ Ext.define('pxp.controller.VoBoWfWzd', {
    onVoBoRefresh:function(){
    	   var me = this;
    	   me.getVobowflistwzd().down('list').getStore().load();
-   	
    },
     
-   onBackState:function(){
-   	
-   	    var me = this;
-    	
+   onBackState:function(){   	
+   	    var me = this;    	
     	me.formEstAnt = Ext.create('pxp.view.vobowfwzd.FormEstAntWzd',{
 			id_proceso_wf: me.getVobowfdetailwzd().getId_proceso_wf(),
  	        id_estado_wf: me.getVobowfdetailwzd().getId_estado_wf()
-		});
-	   
+		});	   
 	    Ext.Viewport.add(me.formEstAnt);
-    	
-    	me.formEstAnt.show();
-    	
+    	me.formEstAnt.show();    	
    }, 
    
    onNextState:function(){
    	    
-   	  
    	    //load next state
    	    var me = this, 
    	        params = {
                 id_proceso_wf:  me.getVobowfdetailwzd().getId_proceso_wf(),
-               
                 operacion: 'verificar'
               };
         
@@ -235,11 +224,8 @@ Ext.define('pxp.controller.VoBoWfWzd', {
 		              me.Formestsigwzd.down('#id_depto').reset();
 		              me.Formestsigwzd.down('#desc_depto').reset();
    	    
-		           
-		             if(!me.estadowfcmp){
-    		
-				    		
-				    	    me.estadowfcmp = Ext.create('pxp.view.component.EstadoWf',{
+		              if(!me.estadowfcmp){    		
+				    		me.estadowfcmp = Ext.create('pxp.view.component.EstadoWf',{
 					    	   	'cmpHidden': me.Formestsigwzd.down('#id_tipo_estado'),
 					    	   	'cmpText': me.Formestsigwzd.down('#nombre_estado'),
 					    	   	'displayColumn': 'nombre_estado',
@@ -248,24 +234,48 @@ Ext.define('pxp.controller.VoBoWfWzd', {
 				    	   
 				    	   me.estadowfcmp.hide();
 				    	   Ext.Viewport.add(me.estadowfcmp);
-			    	 }
+			    	  }			    	 
 			    	 
+			    	 //define que estado se filtran ...
+			    	 me.Formestsigwzd.setEstados(Response.ROOT.datos.estados);
+			    	 me.Formestsigwzd.setId_estado_wf(me.getVobowfdetailwzd().getId_estado_wf());
+			    	 me.Formestsigwzd.setId_proceso_wf(me.getVobowfdetailwzd().getId_proceso_wf());
 			    	  
-			    	  //define que estado se filtran ...
-			    	 
-			    	  me.Formestsigwzd.setEstados(Response.ROOT.datos.estados);
-			    	  me.Formestsigwzd.setId_estado_wf(me.getVobowfdetailwzd().getId_estado_wf());
-			    	  me.Formestsigwzd.setId_proceso_wf(me.getVobowfdetailwzd().getId_proceso_wf());
+			    	 //Crear departamentos ... 
+			    	 if(!me.deptowfcmp){
+			    		me.deptowfcmp = Ext.create('pxp.view.component.DeptoWf',{
+				    	   	'cmpHidden': me.Formestsigwzd.down('#id_depto'),
+				    	   	'cmpText': me.Formestsigwzd.down('#desc_depto'),
+				    	   	'displayColumn': 'nombre_depto',
+				    	   	'idColumn': 'id_depto'
+			    	   });
+			    	   me.deptowfcmp.hide();
+			    	   Ext.Viewport.add(me.deptowfcmp);
+			    	} 
+			    	me.Formestsigwzd.down('#depto_fieldset').disable();
+   	                me.Formestsigwzd.down('#depto_fieldset').hide();
+			    	
+			    	//crear funcionarios
+			    	 if(!me.funcionariowfcmp){			
+			    		me.funcionariowfcmp = Ext.create('pxp.view.component.FuncionarioWf',{
+				    	   	'cmpHidden': me.Formestsigwzd.down('#id_funcionario'),
+				    	   	'cmpText': me.Formestsigwzd.down('#desc_funcionario'),
+				    	   	'displayColumn':'desc_funcionario',
+				    	   	'idColumn':'id_funcionario'
+			    	   });			    	   
+			    	   me.funcionariowfcmp.hide();
+			    	   Ext.Viewport.add(me.funcionariowfcmp);
+			    	}
+			    	me.Formestsigwzd.down('#funcionario_fieldset').disable();
+   	                me.Formestsigwzd.down('#funcionario_fieldset').hide();
+			    	
 			    	   
-			    	 
-			    	 //si tiene un solo estado cargamos el combo con este valor
-			    	 if(Response.ROOT.datos.id_tipo_estado > 0){
+			    	//si tiene un solo estado cargamos el combo con este valor
+			    	if(Response.ROOT.datos.id_tipo_estado > 0){
 			    	 		console.log('solo tiene un estado destino');
-			    	 		
-			    	 		var store = me.estadowfcmp.down('list').getStore();
-    	    
+			    	 		var store = me.estadowfcmp.down('list').getStore();    	    
 					    	pxp.app.showMask(); 
-					    	store.getProxy().setExtraParams({'estados': me.Formestsigwzd.getEstados()});
+					    	store.getProxy().setExtraParams({ 'estados': me.Formestsigwzd.getEstados() });
 								
 					    	store.load({
 					    		start: 0,
@@ -274,130 +284,128 @@ Ext.define('pxp.controller.VoBoWfWzd', {
 					    		callback:function(rec){
 					    			console.log('respuesta funcionarios ...',rec)
 						    		pxp.app.hideMask();
-						    		me.Formestsigwzd.down('#nombre_estado').setValue(rec[0].data.nombre_estado);
-	    	   						me.Formestsigwzd.down('#id_tipo_estado').setValue(rec[0].data.id_tipo_estado);
-					    		
-					    	}});
-			    	 	
-			    	 }
-		            
-		            
-		              //funcionario wf
-		              if(!me.funcionariowfcmp){
-    		
-			    		
-			    		
-			    	    me.funcionariowfcmp = Ext.create('pxp.view.component.FuncionarioWf',{
-				    	   	'cmpHidden': me.Formestsigwzd.down('#id_funcionario'),
-				    	   	'cmpText': me.Formestsigwzd.down('#desc_funcionario'),
-				    	   	'displayColumn':'desc_funcionario',
-				    	   	'idColumn':'id_funcionario'
-			    	   });
-			    	   
-			    	   me.funcionariowfcmp.hide();
-			    	   Ext.Viewport.add(me.funcionariowfcmp);
-			    	}
-			    	//depto wf
-			    	
-			    	console.log('ROOOOOT >>>>>>>>' , Response.ROOT.datos)
-			    	//si tiene un solo estado cargamos el combo con este valor
-			    	 if(Response.ROOT.datos.num_funcionarios > 0){
-			    	 	    me.Formestsigwzd.down('#funcionario_fieldset').show();
-			    	 		var storefun = me.funcionariowfcmp.down('list').getStore();
-    	    
-					    	pxp.app.showMask(); 
-					    	storefun.getProxy().setExtraParams({'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
-					    	                                 'id_tipo_estado': Response.ROOT.datos.id_tipo_estado,
-					    	                                 'fecha': (new Date()).toJSON()});
-								
-					    	storefun.load({
-					    		start:0,
-					    		limit:20,
-					    		page:1,
-					    		callback:function(rec){
-						    		pxp.app.hideMask();
-						    		me.funcionariowfcmp.getCmpText().setValue(rec[0].data.desc_funcionario);
-	    	   						me.funcionariowfcmp.getCmpHidden().setValue(rec[0].data.id_funcionario);
-					    		
-					    	}});
-			    	 	
-			    	 }
-			    	 else{
-			    	 	 me.Formestsigwzd.down('#funcionario_fieldset').hide();
-			    	 }
+						    		if(rec[0]){
+							    		 me.Formestsigwzd.down('#nombre_estado').setValue(rec[0].data.nombre_estado);
+		    	   						 me.Formestsigwzd.down('#id_tipo_estado').setValue(rec[0].data.id_tipo_estado);	
+							    		 if(rec[0].data.tipo_asignacion == 'segun_depto'){
+							    		  	  //Carga depto y secuencialmente el funcionario
+							    		  	  me.cargarDeptos(me, rec[0].data.id_tipo_estado, true);
+							    		 }
+							    		 else{
+							    		 	 //carga los deptos 
+								    		 if(rec[0].data.depto_asignacion != 'ninguno'){
+								    		  	  me.cargarDeptos(me, rec[0].data.id_tipo_estado, false);
+								    		 }
+								    		 //Carga funcionarios directamente si es necesario
+								    		 if(rec[0].data.tipo_asignacion != 'ninguno'){
+								    		  	  me.cargarFuncionario(me, rec[0].data.id_tipo_estado);
+								    		 }
+							    		 }
+						    		}
+						    }});
+					}
 			    	 
-			    	 //define depto wf
-			    	 if(!me.deptowfcmp){
-    		
-			    		
-			    		
-			    	    me.deptowfcmp = Ext.create('pxp.view.component.DeptoWf',{
-				    	   	'cmpHidden': me.Formestsigwzd.down('#id_depto'),
-				    	   	'cmpText': me.Formestsigwzd.down('#desc_depto'),
-				    	   	'displayColumn':'nombre_depto',
-				    	   	'idColumn':'id_depto'
-			    	   });
-			    	   
-			    	   me.deptowfcmp.hide();
-			    	   Ext.Viewport.add(me.deptowfcmp);
-			    	}
-			    	//depto wf
-			    	
-			    	console.log('ROOOOOT >>>>>>>>' , Response.ROOT.datos)
-			    	//si tiene un solo estado cargamos el combo con este valor
-			    	 if(Response.ROOT.datos.num_deptos > 0){
-			    	 	    me.Formestsigwzd.down('#depto_fieldset').show();
-			    	 		var storedep = me.deptowfcmp.down('list').getStore();
-    	    
-					    	pxp.app.showMask(); 
-					    	storedep.getProxy().setExtraParams({'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
-					    	                                    'id_tipo_estado': Response.ROOT.datos.id_tipo_estado,
-					    	                                    'fecha': (new Date()).toJSON()});
-								
-					    	storedep.load({
-					    		start: 0,
-					    		limit: 20,
-					    		page: 1,
-					    		callback:function(rec){
-						    		pxp.app.hideMask();
-						    		me.deptowfcmp.getCmpText().setValue(rec[0].data.nombre_depto);
-	    	   						me.deptowfcmp.getCmpHidden().setValue(rec[0].data.id_depto);
-					    		
-					    	}});
-			    	 	
-			    	 }
-			    	 else{
-			    	 	 me.Formestsigwzd.down('#depto_fieldset').hide();
-			    	 }
-		            
-		             me.getVobowfdetailwzd().hide();
-     	             me.Formestsigwzd.show();
-     	            
-
+			    	 me.getVobowfdetailwzd().hide();
+			         me.Formestsigwzd.show();
+		              
 		        },
 		        failure:function(resp){
                     var Response = Ext.JSON.decode(resp.responseText);
                     pxp.app.hideMask();
                     Ext.Msg.alert('Info...', Response.ROOT.detalle.mensaje, Ext.emptyFn);
-                    
                 }
         });
    	    
-   	    
-   	    
-   	    /*
-   	    var me = this;
-    	
-    	me.formEstSig = Ext.create('pxp.view.vobowfwzd.FormEstSigWzd',{
-			id_proceso_wf: me.getVobowfdetailwzd().getId_proceso_wf(),
- 	        id_estado_wf: me.getVobowfdetailwzd().getId_estado_wf()
-		});
-	   
-	    Ext.Viewport.add(me.formEstSig);
-    	
-    	me.formEstSig.show();*/
-    	
    },
+   
+   onEstadoWfDone: function(obj,value,id,record){
+    	
+    	var me = this;
+    	//inicia campos
+    	me.deptowfcmp.getCmpText().reset();
+	    me.deptowfcmp.getCmpHidden().reset();
+    	me.funcionariowfcmp.getCmpText().reset();
+	    me.funcionariowfcmp.getCmpHidden().reset();	    
+	    me.Formestsigwzd.down('#depto_fieldset').disable();
+   	    me.Formestsigwzd.down('#depto_fieldset').hide();
+	    me.Formestsigwzd.down('#funcionario_fieldset').disable();
+   	    me.Formestsigwzd.down('#funcionario_fieldset').hide();
+	    console.log(record.data)
+	    //Carga datos
+	    if(record.data.tipo_asignacion == 'segun_depto'){
+		  	  //Carga depto y secuencialmente el funcionario
+		  	  me.cargarDeptos(me, record.data.id_tipo_estado, true);
+		}
+		else{
+		 	 //carga los deptos 
+    		 if(record.data.depto_asignacion != 'ninguno'){
+    		  	  me.cargarDeptos(me, record.data.id_tipo_estado, false);
+    		 }
+    		 //Carga funcionarios directamente si es necesario
+    		 if(record.data.tipo_asignacion != 'ninguno'){
+    		  	  me.cargarFuncionario(me, record.data.id_tipo_estado);
+    		 }
+		 }
+	    
+    },
+   onDeptoWfDone: function( obj,nombre_depto, id_depto, record){
+   	   var me = this;
+   	   me.cargarFuncionario(me, me.Formestsigwzd.down('#id_tipo_estado').getValue(), id_depto);
+   },
+   
+   cargarDeptos: function(me,  id_tipo_estado, sw_fun){
+   	     me.Formestsigwzd.down('#depto_fieldset').enable();
+   	     me.Formestsigwzd.down('#depto_fieldset').show();
+ 		 var storedep = me.deptowfcmp.down('list').getStore();
+         pxp.app.showMask(); 
+    	 storedep.getProxy().setExtraParams({'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
+    	                                    'id_tipo_estado': id_tipo_estado,
+    	                                    'fecha': (new Date()).toJSON()});
+			
+    	storedep.load({
+    		start: 0,
+    		limit: 20,
+    		page: 1,
+    		callback:function(rec){
+	    		pxp.app.hideMask();
+	    		if(rec[0]){
+		    		me.deptowfcmp.getCmpText().setValue(rec[0].data.nombre_depto);
+					me.deptowfcmp.getCmpHidden().setValue(rec[0].data.id_depto);
+					if(sw_fun){
+						me.cargarFuncionario(me, id_tipo_estado, rec[0].data.id_depto);
+					}	
+	    		}
+	    }});
+    	 	
+    	 
+   },
+   
+   cargarFuncionario: function(me , id_tipo_estado, id_depto_wf){
+   	     me.Formestsigwzd.down('#funcionario_fieldset').enable();
+   	     me.Formestsigwzd.down('#funcionario_fieldset').show();
+    	 var storefun = me.funcionariowfcmp.down('list').getStore();
+
+		   pxp.app.showMask(); 
+		   storefun.getProxy().setExtraParams({'id_estado_wf': me.Formestsigwzd.getId_estado_wf(),
+		    	                                'id_tipo_estado': id_tipo_estado,
+		    	                                'id_depto_wf': id_depto_wf,
+		    	                                'fecha': (new Date()).toJSON()});
+					
+		   storefun.load({
+		    		start:0,
+		    		limit:20,
+		    		page:1,
+		    		callback:function(rec){
+			    		pxp.app.hideMask();
+			    		if(rec[0]){
+			    			me.funcionariowfcmp.getCmpText().setValue(rec[0].data.desc_funcionario);
+   						    me.funcionariowfcmp.getCmpHidden().setValue(rec[0].data.id_funcionario);
+			    		}
+			}});
+    	 	
+    	 
+    	 
+   }, 
     
    onListTap:function(lista, index, target, record, e, eOpts){
    	
@@ -433,7 +441,7 @@ Ext.define('pxp.controller.VoBoWfWzd', {
 		        success: function(resp){
 		           var Response = Ext.JSON.decode(resp.responseText);
 		           pxp.app.hideMask();
-		           me.getVobowfdetailwzd().down('#detailvobo').setHtml(Response.ROOT.datos.plantilla_correo)
+		           me.getVobowfdetailwzd().down('#detailvobo').setHtml('<p>'+Response.ROOT.datos.plantilla_correo+'</p>')
 		            
 		           
 		        },
@@ -543,6 +551,21 @@ Ext.define('pxp.controller.VoBoWfWzd', {
 		                obs: values.obs,
 		                mobile: 'si'
 		            };
+		            
+		        //validaciones
+		        if(!me.Formestsigwzd.down('#funcionario_fieldset').isHidden() ){
+		        	if(!params.id_funcionario_wf){
+		        		alert('Es necesario indicar un funcionario');
+		        		return;
+		        	}
+		        } 
+		        
+		        if(!me.Formestsigwzd.down('#depto_fieldset').isHidden() ){
+		        	if(!params.id_depto_wf){
+		        		alert('Es necesario indicar el departamento');
+		        		return;
+		        	}
+		        }   
 		            
 		        pxp.app.showMask();
 		    	Ext.Ajax.request({

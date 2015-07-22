@@ -16,9 +16,7 @@ Ext.define('pxp.controller.Login', {
             navigationView : 'navigation',
             mainMenuView:'mainmenuview', 
 			navBtn : 'button[name="nav_btn"]'
-            
-          
-        },
+         },
         control: {
             loginView: {
                 signInCommand: 'onSignInCommand',
@@ -27,21 +25,8 @@ Ext.define('pxp.controller.Login', {
             
             mainView:{
             	 onSignOffCommand: 'onSignOffCommand'
-            },
-            navBtn : {
-				
-				tap : 'toggleNav'
-		   
-		    },
-		    mainMenuView : {
-						onOpenHandler : function(list, index, target, record){
-							this.toggleNav();
-						}
-		    }
-			
-		   
-   
-        }
+            }
+		}
     },
 
     // Session token
@@ -145,37 +130,31 @@ Ext.define('pxp.controller.Login', {
         console.log('headers',headers)
         
         pxp.app.storeMenu = Ext.create('pxp.store.UserInterface',{
-	        	            
-	        	           proxy: {
-					          type: 'ajax',
-					          withCredentials: true,
-	                          useDefaultXhrHeader: false,
-					          autoLoad: true,
-	                          simpleSortMode: true,
-					          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
-					          reader : {
-						        type : 'json',
-						        rootProperty : 'datos'
-						         }
-					       }
-	        	           
-	        	           
-	        	       }); //store of menu
+	        	             proxy: {
+						          type: 'ajax',
+						          withCredentials: true,
+		                          useDefaultXhrHeader: false,
+						          autoLoad: true,
+		                          simpleSortMode: true,
+						          url:pxp.apiRest._url('seguridad/Gui/listarMenuMobile'),
+						          reader : {
+							        type : 'json',
+							        rootProperty : 'datos'
+							         }
+						       }
+		        	       }); //store of menu
        
 
         //load menu
         if(!this.mainMenu){
-	        this.mainMenu = Ext.create ('pxp.view.phone.Main');
-	        
+	        this.mainMenu = Ext.create ('pxp.view.phone.Main');	        
 	    }
 	    pxp.app.storeMenu.load()
 	    
 	    var mainMenuView = this.getMainMenuView();
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
-        
-        
-        
+       
     },
     
     signInFailure: function (message) {

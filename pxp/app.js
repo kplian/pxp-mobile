@@ -12,6 +12,8 @@
 Ext.application({
     name: 'pxp',
     requires: [
+        'pxp.util.PaintMonitor',
+        'pxp.util.SizeMonitor',
         'Ext.MessageBox',
         'pxp.lib.LocalStorageCookie',
         'Ext.data.JsonP',
@@ -22,17 +24,20 @@ Ext.application({
         'Ext.field.Select',
         'Ext.field.Search',
         'Ext.Toolbar',
-        'Ext.data.proxy.Rest'
+        'Ext.data.proxy.Rest',
+        'Ext.field.Hidden'
     ],
       
-    profiles: ['Phone','Tablet'],
+    //profiles: ['Phone','Tablet'],
 
     views: [
         'MainMenu',
         'Login',
         'interino.Interino',
         'vobowf.VoBoWf' ,
-        'vobowfwzd.VoBoWfWzd'
+        'vobowfwzd.VoBoWfWzd',
+        'vobofondo.VoBoFondo',
+        'BottomTabs'
         
     ],
     

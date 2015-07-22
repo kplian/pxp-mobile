@@ -7,7 +7,7 @@
     /**
      * The file path to this application's front HTML document, relative to this app.json file
      */
-    "indexHtmlPath": "index.html",
+    "indexHtmlPath": "index.php",
 
     /**
      * The absolute URL to this application in development environment, i.e: the URL to run this application
@@ -105,14 +105,8 @@
             "path": "resources/css/app.css",
             "update": "delta"
         },
-        
         {
-            "path": "resources/css/slidenav.css",
-            "update": "full"
-        },
-        
-        {
-            "path": "resources/css/tabla_resposive.css",
+            "path": "resources/css/tabla_responsive.css",
             "update": "full"
         }
         
@@ -165,7 +159,6 @@
      * must be kept intact for proper generation of deltas between updates
      */
     "archivePath": "archive",
-    "lan":['es']
 
     /**
      * List of package names to require for the cmd build process
@@ -177,5 +170,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "0ad03ef1-a3b9-481d-afd1-1f195de8de0d"
+    "id": "3413fee5-7515-402e-a9ec-b68a23cd037c"
 }

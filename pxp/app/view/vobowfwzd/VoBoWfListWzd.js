@@ -84,7 +84,7 @@ Ext.define('pxp.view.vobowfwzd.VoBoWfListWzd', {
 						    "<td colspan=2 style='float: left;' width='100%'>#Tramite: {nro_tramite}</b></td>",
 						  "</tr>",
 						  "<tr>",
-						    "<td colspan=2 style='float: left;' width='100%'>Estado: {nombre_tipo_estado} ({usu_reg_ew})</td>",
+						    "<td colspan=2 style='float: left;' width='100%'>Estado: {nombre_tipo_estado} ({usu_reg_ew}) , revisiones ({contador_estados})</td>",
 						  "</tr>",
 						  "<tr>",
 						    "<td colspan=2 style='float: left;' width='100%'><p>Resp: {nombre_depto} {desc_funcionario1}  </p></td>",

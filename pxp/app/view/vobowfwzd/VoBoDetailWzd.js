@@ -14,17 +14,17 @@ Ext.define('pxp.view.vobowfwzd.VoBoDetailWzd', {
     xtype: 'vobowfdetailwzd',
     requires: [
         'pxp.view.vobowfwzd.FormEstAntWzd'
-        
-    ],
-    
-    config: {
-    	id_proceso_wf:undefined,
-    	id_estado_wf:undefined,
+     ],
+     config: {
+    	id_proceso_wf: undefined,
+    	id_estado_wf: undefined,
     	ui: 'light',
+    	scrollable:false,
     	showAnimation: { type: "slide", direction: "down" } ,
         items: [
             {
                 xtype: 'toolbar',
+                
                 ui: 'light',
                 docked: 'top',
                 items: [
@@ -44,6 +44,7 @@ Ext.define('pxp.view.vobowfwzd.VoBoDetailWzd', {
            {
 
            	xtype: 'container',
+           	layout: 'fit',
            	itemId: 'detailvobo',
            	scrollable: {
 				    direction: 'vertical',

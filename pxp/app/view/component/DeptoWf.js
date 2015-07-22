@@ -118,7 +118,7 @@ Ext.define('pxp.view.component.DeptoWf', {
     	   me.getCmpText().setValue(record.data['nombre_depto']);
     	   me.getCmpHidden().setValue(record.data['id_depto']);
     	   me.hide();
-    	   me.fireEvent('done', me, record.data['nombre_depto'], record.data['id_depto']);
+    	   me.fireEvent('done', me, record.data['nombre_depto'], record.data['id_depto'], record);
     	}
     	
     },

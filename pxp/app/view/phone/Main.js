@@ -1,7 +1,8 @@
 ﻿Ext.define("pxp.view.phone.Main", {
     extend: "Ext.Container",
     requires: [
-        "Ext.TitleBar"
+        "Ext.TitleBar",
+        "pxp.view.MainMenu"
         
     ],
     alias: "widget.main",
@@ -9,21 +10,26 @@
     	style: 'background-color: #ddf',
     	ui: 'dark',
         layout: {
-            type:"fit"
+            //type:"fit"
+             type: 'card'
         },
         items: [
             {
 				xtype : 'navigation',
-				cls: 'slide',
-				// Needed to fit the whole content
 				width: '100%'												
-			}, {
-				xtype : 'mainmenuview',
-				width : 250,
-				style: 'background-color: #ddf;',
-                ui: 'light'
-			} 
+			}
+			
 
         ]
-    }
+    },
+    initialize: function(){
+    	Ext.Viewport.setMenu(this.createMenu(),{
+            side: 'left',
+            cover: false
+        });
+    },
+   createMenu: function(){
+       var menu = Ext.create('pxp.view.MainMenu', {width: 250});
+       return menu;
+   }
 });

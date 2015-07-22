@@ -46,7 +46,7 @@ Ext.define('pxp.controller.phone.Main', {
      * just sets everything up to show that menu
      */
     showMenuById: function(id) {
-    	
+    	alert('telefono')
     	console.log('showMenuById...........')
     	
         /*var nav  = this.getMainMenuView(),
@@ -77,21 +77,22 @@ Ext.define('pxp.controller.phone.Main', {
             anim   = item.get('animation'),
             initialAnim = layout.getAnimation(),
             newAnim;
-
+/*
         if (anim) {
             layout.setAnimation(anim);
             newAnim = layout.getAnimation();
-        }
+        }*/
 
         //nav.setDetailCard(view);
         //nav.goToNode(item.parentNode);
         //nav.goToLeaf(item);
 
-        if (newAnim) {
+        /*
+         if (newAnim) {
             newAnim.on('animationend', function() {
                 layout.setAnimation(initialAnim);
             }, this, { single: true });
-        }
+        }*/
 
         this.getToolbar().setTitle(title);
         //this.getSourceButton().setHidden(false);
@@ -102,6 +103,7 @@ Ext.define('pxp.controller.phone.Main', {
      * "View Source" button as we do no want to see that when we are in the NestedList itself
      */
     onBackTap: function(nestedList, node) {
+    	alert('telefono')
         //this means we just hit back out of a detail card
         if (node.isLeaf()) {
             //this.getSourceButton().setHidden(true);

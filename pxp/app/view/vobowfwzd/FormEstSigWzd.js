@@ -12,8 +12,10 @@ Ext.define('pxp.view.vobowfwzd.FormEstSigWzd', {
     	ui: 'light',
     	id_proceso_wf:undefined,
     	id_estado_wf:undefined,
+    	id_depto_wf:undefined,
     	estados: undefined,
     	hideOnMaskTap : true,
+    	scrollable: false,
         layout: {
             type: 'vbox',
             align: 'stretch'
@@ -62,6 +64,7 @@ Ext.define('pxp.view.vobowfwzd.FormEstSigWzd', {
            {
                 xtype: 'formpanel',
                 padding :'5 5 5 5',
+                scrollable: true,
                 flex:1,
                 items:[
 	                    
@@ -84,7 +87,6 @@ Ext.define('pxp.view.vobowfwzd.FormEstSigWzd', {
 					                labelWidth:100,
 					                label: 'Est. sig',
 					                flex: Ext.os.is.Phone?1:undefined,
-					                //flex: 1,
 					                itemId:'nombre_estado',
 					                name: 'nombre_estado', 
 					                readOnly:true
@@ -93,38 +95,6 @@ Ext.define('pxp.view.vobowfwzd.FormEstSigWzd', {
 					             {
 					                xtype: 'button',
 					                itemId:'estadowfbutton',
-					                iconCls: 'ico-customers-small'
-					             }
-					         ]
-				        },
-				        {
-				           	xtype: 'fieldset',
-				           	itemId:'funcionario_fieldset',
-				           	margin:'5 5 5 5',
-				           	layout: {
-					            type: 'hbox',
-					            align: 'stretch'
-					        },
-					        items:[
-					             {
-					                xtype: 'hiddenfield',
-					                itemId:'id_funcionario',
-					                name: 'id_funcionario'
-					             },
-					             {
-					                xtype: 'textfield',
-					                labelWidth:100,
-					                label: 'Funcionario',
-					                flex: Ext.os.is.Phone?1:undefined,
-					                //flex: 1,
-					                itemId:'desc_funcionario',
-					                name: 'desc_funcionario', 
-					                readOnly:true
-					                
-					             },
-					             {
-					                xtype: 'button',
-					                itemId:'funcionariowfbutton',
 					                iconCls: 'ico-customers-small'
 					             }
 					         ]
@@ -157,6 +127,38 @@ Ext.define('pxp.view.vobowfwzd.FormEstSigWzd', {
 					             {
 					                xtype: 'button',
 					                itemId:'deptowfbutton',
+					                iconCls: 'ico-customers-small'
+					             }
+					         ]
+				        },
+				        {
+				           	xtype: 'fieldset',
+				           	itemId:'funcionario_fieldset',
+				           	margin:'5 5 5 5',
+				           	layout: {
+					            type: 'hbox',
+					            align: 'stretch'
+					        },
+					        items:[
+					             {
+					                xtype: 'hiddenfield',
+					                itemId:'id_funcionario',
+					                name: 'id_funcionario'
+					             },
+					             {
+					                xtype: 'textfield',
+					                labelWidth:100,
+					                label: 'Funcionario',
+					                flex: Ext.os.is.Phone?1:undefined,
+					                //flex: 1,
+					                itemId:'desc_funcionario',
+					                name: 'desc_funcionario', 
+					                readOnly:true
+					                
+					             },
+					             {
+					                xtype: 'button',
+					                itemId:'funcionariowfbutton',
 					                iconCls: 'ico-customers-small'
 					             }
 					         ]

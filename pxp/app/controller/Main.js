@@ -13,10 +13,10 @@ Ext.define('pxp.controller.Main', {
         viewCache: [],
 
         refs: {
-        	nav:'mainmenuview',
-        	navTest:'#maincontainerid',
+        	nav: 'mainmenuview',
+        	navTest: '#maincontainerid',
         	mainView: 'main',
-        	navigation:'navigation'
+        	navigation: 'navigation'
         },
 
         control: {
@@ -72,6 +72,7 @@ Ext.define('pxp.controller.Main', {
      * Shows the source code for the {@link #currentDemo} in an overlay
      */
     onSourceTap: function () {
+    	alert('overlay')
         var overlay = this.getSourceOverlay(),
             demo = this.getCurrentDemo();
 
@@ -164,9 +165,7 @@ Ext.define('pxp.controller.Main', {
      * the browser's back button
      */
     hideSheets: function () {
-        Ext.each(Ext.ComponentQuery.query('sheet'), function (sheet) {
-            sheet.setHidden(true);
-        });
+        Ext.Viewport.hideMenu('left');
     },
     
     //exttras..........
@@ -187,18 +186,15 @@ Ext.define('pxp.controller.Main', {
     },
     
    showView: function(item) {
-   	     var nav  = this.getNav(),
+   	    var nav  = this.getNav(),
             view = this.createView(item),
             main = this.getNavTest(),
             newAnim;
+        
         main.setActiveItem(view);
         nav.getActiveItem().select(item);
-
-        if (newAnim) {
-            newAnim.on('animationend', function() {
-                layout.setAnimation(initialAnim);
-            }, this, { single: true });
-        }
+        
+        
     }
    
 });

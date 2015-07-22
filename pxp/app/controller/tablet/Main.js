@@ -32,6 +32,7 @@ Ext.define('pxp.controller.tablet.Main', {
      * This is called whenever the user taps on an item in the main navigation NestedList
      */
     onNavTap: function(nestedList, list, index) {
+    	alert('onNavTap')
         var record = list.getStore().getAt(index);
 
         if (record.isLeaf()) {
@@ -45,6 +46,7 @@ Ext.define('pxp.controller.tablet.Main', {
      * @param {Kitchensink.model.Demo} item The Demo model instance for which we want to show a view
      */
     showView: function(item) {
+    	alert('tablet ..')
         var nav  = this.getNav(),
             view = this.createView(item),
             main = this.getMain(),
