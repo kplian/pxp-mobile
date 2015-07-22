@@ -121,7 +121,8 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html"
+            "index.php",
+            "app.js"
         ],
         /**
          * List of items in the NETWORK section
@@ -165,6 +166,12 @@
      */
     "requires": [
     ],
+    
+    "output": {
+	    "page": {
+	        "path": "index.php"
+	    }
+	},
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.

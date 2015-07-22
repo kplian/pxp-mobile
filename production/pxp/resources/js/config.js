@@ -1,1 +1,1 @@
-function _745b19ba8bf41c46c45584ccbe5d7144152a0250(){};_CONFIG={_host:"172.17.45.229",_port:"80",_protocol:"http",_base_url:"kerp_capacitacion/lib/rest/",_time_period:5000,};
+function _0ecfdfa817068a0e2bb4394d2bf202ee1a6e107f(){};_CONFIG={_host:"172.17.45.229",_port:"443",_protocol:"https",_base_url:"kerp_capacitacion/lib/rest/",_time_period:5000,};
