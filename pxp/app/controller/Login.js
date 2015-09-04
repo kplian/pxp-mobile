@@ -154,6 +154,8 @@ Ext.define('pxp.controller.Login', {
 	    var mainMenuView = this.getMainMenuView();
         mainMenuView.down('list').setStore(pxp.app.storeMenu);
         Ext.Viewport.animateActiveItem(this.mainMenu, this.getSlideLeftTransition());
+        Ext.Viewport.showMenu('left');
+        
        
     },
     

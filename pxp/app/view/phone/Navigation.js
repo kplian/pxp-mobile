@@ -34,10 +34,10 @@ Ext.define('pxp.view.phone.Navigation', {
 											ui : 'plain',
 							                handler: function(){
 							                	if(Ext.Viewport.getMenus().left.isHidden()){
-							                        Ext.Viewport.showMenu('left');
+							                         Ext.Viewport.showMenu('left');
 							                    }
 							                    else{   
-							                    	Ext.Viewport.hideMenu('left');
+							                    	 Ext.Viewport.hideMenu('left');
 							                   }
 							                }
 										},
